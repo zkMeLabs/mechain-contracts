@@ -9,11 +9,11 @@ const log = console.log;
 const unit = ethers.constants.WeiPerEther;
 
 let enableCrossChainTransfer = true;
-const gnfdChainId = 9000;
+const gnfdChainId = 5600;
 let emergencyOperator = ''; // suspend / reopen / cancelTransfer
 let emergencyUpgradeOperator = ''; // update params / upgrade contracts
 const initConsensusState: any = {
-    chainID: 'greenfield_9000-1741',
+    chainID: 'mechain_5600-121',
     height: 1,
     nextValidatorSetHash: '0xaf6b801dda578dddfa4da1d5d67fd1b32510db24ec271346fc573e9242b01c9a',
     validators: [

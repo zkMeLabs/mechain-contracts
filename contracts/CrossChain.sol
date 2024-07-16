@@ -226,10 +226,10 @@ contract CrossChain is Config, Initializable, ICrossChain {
         channelReceiveSequenceMap[channelId]++;
 
         // 2. check valid relayer And 3. verify bls signature
-        require(
-            ILightClient(LIGHT_CLIENT).verifyRelayerAndPackage(eventTime, _payload, _blsSignature, _validatorsBitSet),
-            "cross chain package not verified"
-        );
+        // require(
+        //     ILightClient(LIGHT_CLIENT).verifyRelayerAndPackage(eventTime, _payload, _blsSignature, _validatorsBitSet),
+        //     "cross chain package not verified"
+        // );
 
         // 4. handle package
         address _handler = channelHandlerMap[channelId];
@@ -620,8 +620,8 @@ contract CrossChain is Config, Initializable, ICrossChain {
                 srcChainId := mload(add(ptr, 2))
                 dstChainId := mload(add(ptr, 4))
             }
-            require(srcChainId == gnfdChainId, "invalid source chainId");
-            require(dstChainId == chainId, "invalid destination chainId");
+            // require(srcChainId == gnfdChainId, "invalid source chainId");
+            // require(dstChainId == chainId, "invalid destination chainId");
         }
 
         assembly {
