@@ -17,6 +17,7 @@ contract CmnStorage is Config, PackageQueue {
     uint8 public constant TYPE_CREATE = 2;
     uint8 public constant TYPE_DELETE = 3;
     uint8 public constant TYPE_MULTI_MESSAGE = 4;
+    uint8 public constant TYPE_ZKMESBTACK = 5;
 
     // authorization code
     // can be used by bit operations

@@ -28,6 +28,7 @@ const main = async () => {
     const proxyBucketHub = await deployer.proxyBucketHub();
     const proxyObjectHub = await deployer.proxyObjectHub();
     const proxyGroupHub = await deployer.proxyGroupHub();
+    const proxyZkmeSBTHub = await deployer.proxyZkmeSBTHub();
 
     const config: string = fs
         .readFileSync(__dirname + '/../contracts/Config.sol', 'utf8')
@@ -42,6 +43,7 @@ const main = async () => {
         .replace(/BUCKET_HUB = .*/g, `BUCKET_HUB = ${proxyBucketHub};`)
         .replace(/OBJECT_HUB = .*/g, `OBJECT_HUB = ${proxyObjectHub};`)
         .replace(/GROUP_HUB = .*/g, `GROUP_HUB = ${proxyGroupHub};`)
+        .replace(/ZKMESBT_HUB = .*/g, `ZKMESBT_HUB = ${proxyZkmeSBTHub};`)
         .replace(/EMERGENCY_OPERATOR = .*/g, `EMERGENCY_OPERATOR = ${contracts.EmergencyOperator};`)
         .replace(
             /EMERGENCY_UPGRADE_OPERATOR = .*/g,

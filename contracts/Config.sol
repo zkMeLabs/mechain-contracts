@@ -14,6 +14,7 @@ abstract contract Config {
     uint8 public constant PERMISSION_CHANNEL_ID = 0x07;
     uint8 public constant MULTI_MESSAGE_CHANNEL_ID = 0x08;
     uint8 public constant GNFD_EXECUTOR_CHANNEL_ID = 0x09;
+    uint8 public constant ZKMESBT_CHANNEL_ID = 0x0a;
 
     /**
      * @dev The eip-2771 defines a contract-level protocol for Recipient contracts to accept
@@ -42,6 +43,7 @@ abstract contract Config {
     address public constant PERMISSION_HUB = address(0);
     address public constant MULTI_MESSAGE = address(0);
     address public constant GNFD_EXECUTOR = address(0);
+    address public constant ZKMESBT_HUB = address(0);
 
     // PlaceHolder reserve for future usage
     uint256[50] private configSlots;

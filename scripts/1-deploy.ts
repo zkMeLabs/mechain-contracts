@@ -20,9 +20,9 @@ const initConsensusState: any = {
         {
             pubKey: '0x112b51dda2d336246bdc0cc51407ba0cb0e5087be0db5f1cdc3285bbaa8e6475',
             votingPower: 1000,
-            relayerAddress: '0x4202722cf6a34d727be762b46825b0d26b6263a0',
+            relayerAddress: '0xccbbedff276fc4bba811239c06201ebc2f2ba695',
             relayerBlsKey:
-                '0xa9355ebf3c24bedac5a357a56feeb2cd8b6fed9f14cca15c3091f523b9fb21183b4bb31eb482a0321885e3f570721564',
+                '0xa4258395cfd81883c19b250eef9912d26696ba7362fcd69abf79e81696b1fdc9d9bc75808121c17212b72cad75020d02',
         },
         {
             pubKey: '0x48e2b2f7d9a3e7b668757d9cc0bbd28cd674c34ed1c2ed75c5de3b6a8f8cad46',
@@ -54,7 +54,7 @@ const initConsensusState: any = {
         },
     ],
     consensusStateBytes:
-        '0x677265656e6669656c645f393030302d313734310000000000000000000000000000000000000001af6b801dda578dddfa4da1d5d67fd1b32510db24ec271346fc573e9242b01c9a112b51dda2d336246bdc0cc51407ba0cb0e5087be0db5f1cdc3285bbaa8e647500000000000003e84202722cf6a34d727be762b46825b0d26b6263a0a9355ebf3c24bedac5a357a56feeb2cd8b6fed9f14cca15c3091f523b9fb21183b4bb31eb482a0321885e3f57072156448e2b2f7d9a3e7b668757d9cc0bbd28cd674c34ed1c2ed75c5de3b6a8f8cad4600000000000003e8668a0acd8f6db5cae959a0e02132f4d6a672c4d7a4726b542012cc8023ee07b29ab3971cc999d8751bbd16f23413968afcdb070ed66ab47e6e1842bf875bef21dfc5b8af6813bfd82860d361e339bd1ae2f801b6d6ee46b8497a3d51c80b50b6160ea1cc00000000000003e80dfa99423d3084c596c5e3bd6bcb4f654516517b8d4786703c56b300b70f085c0d0482e5d6a3c7208883f0ec8abd2de893f71d18e8f919e7ab198499201d87f92c57ebce83ed2b763bb872e9bc148fb216fd5c93b18819670d9a946ae4b3075672d726b800000000000003e824aab6f85470ff73e3048c64083a09e980d4cb7f8146d231a7b2051c5f7a9c07ab6e6bfe277bd5f4a94f901fe6ee7a6b6bd8479e9e5e448de4b1b33d5ddd74194c86b3852cc140a3f08a9c4149efd45643202f8bef2ad7eecf53e58951c6df6fd932004b00000000000003e84998f6ef8d999a0f36a851bfa29dbcf0364dd65695c286deb3f1657664859d59876bf1ec5a288f6e66e18b37b8a2a1e6ee4a3ef8fa50784d8b758d0c3e70a7cdfe65ab5d',
+        '0x677265656e6669656c645f393030302d313734310000000000000000000000000000000000000001af6b801dda578dddfa4da1d5d67fd1b32510db24ec271346fc573e9242b01c9a112b51dda2d336246bdc0cc51407ba0cb0e5087be0db5f1cdc3285bbaa8e647500000000000003e8ccbbedff276fc4bba811239c06201ebc2f2ba695a4258395cfd81883c19b250eef9912d26696ba7362fcd69abf79e81696b1fdc9d9bc75808121c17212b72cad75020d0248e2b2f7d9a3e7b668757d9cc0bbd28cd674c34ed1c2ed75c5de3b6a8f8cad4600000000000003e8668a0acd8f6db5cae959a0e02132f4d6a672c4d7a4726b542012cc8023ee07b29ab3971cc999d8751bbd16f23413968afcdb070ed66ab47e6e1842bf875bef21dfc5b8af6813bfd82860d361e339bd1ae2f801b6d6ee46b8497a3d51c80b50b6160ea1cc00000000000003e80dfa99423d3084c596c5e3bd6bcb4f654516517b8d4786703c56b300b70f085c0d0482e5d6a3c7208883f0ec8abd2de893f71d18e8f919e7ab198499201d87f92c57ebce83ed2b763bb872e9bc148fb216fd5c93b18819670d9a946ae4b3075672d726b800000000000003e824aab6f85470ff73e3048c64083a09e980d4cb7f8146d231a7b2051c5f7a9c07ab6e6bfe277bd5f4a94f901fe6ee7a6b6bd8479e9e5e448de4b1b33d5ddd74194c86b3852cc140a3f08a9c4149efd45643202f8bef2ad7eecf53e58951c6df6fd932004b00000000000003e84998f6ef8d999a0f36a851bfa29dbcf0364dd65695c286deb3f1657664859d59876bf1ec5a288f6e66e18b37b8a2a1e6ee4a3ef8fa50784d8b758d0c3e70a7cdfe65ab5d',
 };
 
 const initConsensusStateBytes = initConsensusState.consensusStateBytes;
@@ -121,6 +121,7 @@ const main = async () => {
     const proxyPermissionHub = await deployer.proxyPermissionHub();
     const proxyMultiMessage = await deployer.proxyMultiMessage();
     const proxyGreenfieldExecutor = await deployer.proxyGreenfieldExecutor();
+    const proxyZkmeSBTHub = await deployer.proxyZkmeSBTHub();
 
     // Set all generated contracts to Config contracts
     await setConstantsToConfig({
@@ -136,6 +137,7 @@ const main = async () => {
         proxyPermissionHub,
         proxyMultiMessage,
         proxyGreenfieldExecutor,
+        proxyZkmeSBTHub,
         emergencyOperator,
         emergencyUpgradeOperator,
     });
@@ -172,6 +174,9 @@ const main = async () => {
 
     const implGreenfieldExecutor = await deployContract('GreenfieldExecutor');
     log('deploy implGreenfieldExecutor success', implGreenfieldExecutor.address);
+
+    const implZkmeSBTHub = await deployContract('ZkmeSBTHub');
+    log('deploy implZkmeSBTHub success', implZkmeSBTHub.address);
 
     const addBucketHub = await deployContract('AdditionalBucketHub');
     log('deploy addBucketHub success', addBucketHub.address);
@@ -246,6 +251,7 @@ const main = async () => {
         permissionToken.address,
         implMultiMessage.address,
         implGreenfieldExecutor.address,
+        implZkmeSBTHub.address,
     ];
 
     let tx = await deployer.deploy(initAddrs, initConsensusStateBytes);
@@ -274,6 +280,7 @@ const main = async () => {
         PermissionHub: proxyPermissionHub,
         MultiMessage: proxyMultiMessage,
         GreenfieldExecutor: proxyGreenfieldExecutor,
+        ZkmeSBTHub: proxyZkmeSBTHub,
 
         AdditionalBucketHub: addBucketHub.address,
         AdditionalObjectHub: addObjectHub.address,
@@ -309,28 +316,44 @@ const main = async () => {
 
     tx = await operator.sendTransaction({
         to: proxyTokenHub,
-        value: unit.mul(1000),
+        value: unit.mul(1),
     });
-    await tx.wait(1);
+    await tx.wait(3);
     log('balance of TokenHub', await ethers.provider.getBalance(proxyTokenHub));
 
-    const validators = initConsensusState.validators;
-    for (let i = 0; i < validators.length; i++) {
-        const relayer = validators[i].relayerAddress;
-        tx = await operator.sendTransaction({
-            to: ethers.utils.getAddress(relayer),
-            value: unit.mul(100),
-        });
-        await tx.wait(1);
-    }
+    // const validators = initConsensusState.validators;
+    // for (let i = 0; i < validators.length; i++) {
+    //     const relayer = validators[i].relayerAddress;
+    //     tx = await operator.sendTransaction({
+    //         to: ethers.utils.getAddress(relayer),
+    //         value: unit.mul(100),
+    //     });
+    //     await tx.wait(3);
+    // }
     log('transfer bnb to validators');
 };
 
 const deployContract = async (factoryPath: string, ...args: any) => {
-    const factory = await ethers.getContractFactory(factoryPath);
-    const contract = await factory.deploy(...args);
-    await contract.deployTransaction.wait(1);
-    return contract;
+    const maxRetries = 3;
+    let retries = 0;
+
+    while (retries < maxRetries) {
+        try {
+            const factory = await ethers.getContractFactory(factoryPath);
+            const contract = await factory.deploy(...args);
+            await contract.deployTransaction.wait(3);
+            return contract;
+        } catch (error) {
+            if (error.code === 'ECONNRESET') {
+                console.error(`Error deploying contract: ${error.message}. Retrying...`);
+                retries++;
+                await new Promise((resolve) => setTimeout(resolve, 2000)); // 等待 2 秒后重试
+            } else {
+                throw error;
+            }
+        }
+    }
+    throw new Error('Failed to deploy contract after multiple retries.');
 };
 
 const getCommitId = async (): Promise<string> => {

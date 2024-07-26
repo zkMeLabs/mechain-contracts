@@ -21,6 +21,7 @@ contract Helper is Script, BucketStorage, GroupStorage {
     ObjectHub public objectHub;
     GroupHub public groupHub;
     MultiMessage public multiMessage;
+    ZkmeSBTHub public zkmesbtHub;
 
     uint256 public totalRelayFee;
 
@@ -36,11 +37,12 @@ contract Helper is Script, BucketStorage, GroupStorage {
         objectHub = ObjectHub(payable(deployer.proxyObjectHub()));
         groupHub = GroupHub(payable(deployer.proxyGroupHub()));
         multiMessage = MultiMessage(payable(deployer.proxyMultiMessage()));
+        zkmesbtHub = ZkmeSBTHub(payable(deployer.proxyZkmeSBTHub()));
 
         uint256 relayFee = crossChain.relayFee();
         uint256 minAckRelayFee = crossChain.minAckRelayFee();
         totalRelayFee = relayFee + minAckRelayFee;
-        console.log('total relay fee', totalRelayFee);
+        console.log("total relay fee", totalRelayFee);
     }
 
     function getDeployer() public returns (address _deployer) {
