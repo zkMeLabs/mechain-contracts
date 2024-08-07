@@ -135,6 +135,7 @@ contract CrossChain is Config, Initializable, ICrossChain {
         require(BUCKET_HUB != address(0), "zero BUCKET_HUB");
         require(OBJECT_HUB != address(0), "zero OBJECT_HUB");
         require(GROUP_HUB != address(0), "zero GROUP_HUB");
+        require(ZKMESBT_HUB != address(0), "zero ZKMESBT_HUB");
         require(block.chainid <= type(uint16).max, "chain id overflow");
 
         relayFee = 25 * 1e13;
@@ -172,6 +173,9 @@ contract CrossChain is Config, Initializable, ICrossChain {
 
         channelHandlerMap[GNFD_EXECUTOR_CHANNEL_ID] = GNFD_EXECUTOR;
         registeredContractChannelMap[GNFD_EXECUTOR][GNFD_EXECUTOR_CHANNEL_ID] = true;
+
+        channelHandlerMap[ZKMESBT_CHANNEL_ID] = ZKMESBT_HUB;
+        registeredContractChannelMap[ZKMESBT_HUB][ZKMESBT_CHANNEL_ID] = true;
 
         callbackGasPrice = 4 gwei;
         batchSizeForOracle = 50;

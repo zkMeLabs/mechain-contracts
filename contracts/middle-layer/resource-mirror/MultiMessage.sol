@@ -35,6 +35,7 @@ contract MultiMessage is MultiStorage, CmnHub, IMultiMessage {
         whitelistTargets[OBJECT_HUB] = true;
         whitelistTargets[PERMISSION_HUB] = true;
         whitelistTargets[TOKEN_HUB] = true;
+        whitelistTargets[ZKMESBT_HUB] = true;
     }
 
     function initializeV2() public reinitializer(2) {
