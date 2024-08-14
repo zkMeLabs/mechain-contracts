@@ -230,6 +230,7 @@ contract CrossChain is Config, Initializable, ICrossChain {
         channelReceiveSequenceMap[channelId]++;
 
         // 2. check valid relayer And 3. verify bls signature
+        // just uncomment in bsc/opbnb
         // require(
         //     ILightClient(LIGHT_CLIENT).verifyRelayerAndPackage(eventTime, _payload, _blsSignature, _validatorsBitSet),
         //     "cross chain package not verified"
@@ -379,7 +380,7 @@ contract CrossChain is Config, Initializable, ICrossChain {
         uint64 sequenceChange
     ) external onlyEmergencyUpgradeOperator {
         uint256 _chainId = block.chainid;
-        require(_chainId != BSC_CHAIN_ID && _chainId != BSC_TESTNET_CHAIN_ID, "not allowed on BSC");
+        // require(_chainId != BSC_CHAIN_ID && _chainId != BSC_TESTNET_CHAIN_ID, "not allowed on BSC");
         require(sequenceChange <= MAX_SEQUENCE_CHANGE, "exceed max sequence change");
 
         // 1. oracle sequence
@@ -624,8 +625,8 @@ contract CrossChain is Config, Initializable, ICrossChain {
                 srcChainId := mload(add(ptr, 2))
                 dstChainId := mload(add(ptr, 4))
             }
-            // require(srcChainId == gnfdChainId, "invalid source chainId");
-            // require(dstChainId == chainId, "invalid destination chainId");
+            require(srcChainId == gnfdChainId, "invalid source chainId");
+            require(dstChainId == chainId, "invalid destination chainId");
         }
 
         assembly {

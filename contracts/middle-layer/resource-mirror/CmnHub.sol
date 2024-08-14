@@ -237,7 +237,7 @@ abstract contract CmnHub is CmnStorage, Initializable, ICmnHub, IMiddleLayer {
         CmnMirrorSynPackage memory synPkg = abi.decode(msgBytes[1:], (CmnMirrorSynPackage));
         require(opType == TYPE_MIRROR, "wrong syn operation type");
 
-        uint32 status = _doMirror(synPkg);
+        uint8 status = uint8(_doMirror(synPkg));
         CmnMirrorAckPackage memory mirrorAckPkg = CmnMirrorAckPackage({ status: status, id: synPkg.id });
         return abi.encodePacked(TYPE_MIRROR, abi.encode(mirrorAckPkg));
     }

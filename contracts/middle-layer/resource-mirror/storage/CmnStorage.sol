@@ -72,7 +72,7 @@ contract CmnStorage is Config, PackageQueue {
 
     // BSC to GNFD
     struct CmnMirrorAckPackage {
-        uint32 status;
+        uint8 status;
         uint256 id;
     }
 

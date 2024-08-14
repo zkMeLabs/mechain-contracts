@@ -57,6 +57,12 @@ const config: HardhatUserConfig = {
             },
             gasPrice: 3.1 * 1e9
         },
+        'polygon': {
+            url: process.env.POLYGON_RPC || 'https://polygon-bor-rpc.publicnode.com',
+            accounts: [
+                process.env.DeployerPrivateKey || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',  // developer
+            ]
+        },
         'goerli': {
             url: process.env.GOERLI_RPC || 'https://rpc.ankr.com/eth_goerli',
             accounts: [
