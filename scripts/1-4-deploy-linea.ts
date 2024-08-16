@@ -38,8 +38,8 @@ const main = async () => {
     log('network', network);
     log('operator.address: ', operator.address, toHuman(balance));
 
-    // BSC Mainnet
-    if (network.chainId === 56) {
+    // POLYGON Mainnet
+    if (network.chainId === 137) {
         if (!emergencyOperator) {
             throw new Error('emergencyOperator is not set');
         }
@@ -58,7 +58,7 @@ const main = async () => {
             throw new Error('emergencyUpgradeOperator is not multi-sig contract');
         }
     } else {
-        // BSC Testnet
+        // POLYGON Testnet
         if (!emergencyOperator) {
             emergencyOperator = operator.address;
         }
@@ -281,16 +281,16 @@ const main = async () => {
         JSON.stringify(deployment, null, 2)
     );
 
-    // BSC Mainnet
-    if (network.chainId === 56) {
+    // POLYGON Mainnet
+    if (network.chainId === 59144) {
         return;
     }
 
-    tx = await operator.sendTransaction({
-        to: proxyTokenHub,
-        value: unit.mul(1),
-    });
-    await tx.wait(3);
+    // tx = await operator.sendTransaction({
+    //     to: proxyTokenHub,
+    //     value: unit.mul(1),
+    // });
+    // await tx.wait(3);
     log('balance of TokenHub', await ethers.provider.getBalance(proxyTokenHub));
 
     // const validators = initConsensusState.validators;
@@ -302,7 +302,7 @@ const main = async () => {
     //     });
     //     await tx.wait(3);
     // }
-    log('transfer bnb to validators');
+    log('transfer matic to validators');
 };
 
 const deployContract = async (factoryPath: string, ...args: any) => {

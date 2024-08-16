@@ -164,7 +164,7 @@ const main = async () => {
 
     const bucketToken = await deployContract(
         'ERC721NonTransferable',
-        'GreenField-Bucket',
+        'Mechain-Bucket',
         'BUCKET',
         'bucket',
         proxyBucketHub
@@ -173,7 +173,7 @@ const main = async () => {
 
     const objectToken = await deployContract(
         'ERC721NonTransferable',
-        'GreenField-Object',
+        'Mechain-Object',
         'OBJECT',
         'object',
         proxyObjectHub
@@ -182,7 +182,7 @@ const main = async () => {
 
     const groupToken = await deployContract(
         'ERC721NonTransferable',
-        'GreenField-Group',
+        'Mechain-Group',
         'GROUP',
         'group',
         proxyGroupHub
@@ -191,7 +191,7 @@ const main = async () => {
 
     const permissionToken = await deployContract(
         'ERC721NonTransferable',
-        'GreenField-PermissionToken',
+        'Mechain-PermissionToken',
         'PERMISSION',
         'permission',
         proxyPermissionHub

@@ -44,7 +44,7 @@ const main = async () => {
     const addPermissionHub = await deployContract('AdditionalPermissionHub');
     const permissionToken = await deployContract(
         'ERC721NonTransferable',
-        'GreenField-PermissionToken',
+        'Mechain-PermissionToken',
         'PERMISSION',
         'permission',
         contracts.PermissionHub
@@ -71,7 +71,7 @@ const main = async () => {
         await run('verify:verify', {
             address: permissionToken.address,
             constructorArguments: [
-                'GreenField-Permission',
+                'Mechain-Permission',
                 'PERMISSION',
                 'permission',
                 contracts.PermissionHub,

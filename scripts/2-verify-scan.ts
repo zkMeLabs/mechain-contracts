@@ -175,22 +175,22 @@ const main = async () => {
     try {
         await run('verify:verify', {
             address: bucketToken,
-            constructorArguments: ['GreenField-Bucket', 'BUCKET', 'bucket', proxyBucketHub],
+            constructorArguments: ['Mechain-Bucket', 'BUCKET', 'bucket', proxyBucketHub],
         });
         await run('verify:verify', {
             address: objectToken,
-            constructorArguments: ['GreenField-Object', 'OBJECT', 'object', proxyObjectHub],
+            constructorArguments: ['Mechain-Object', 'OBJECT', 'object', proxyObjectHub],
         });
 
         await run('verify:verify', {
             address: groupToken,
-            constructorArguments: ['GreenField-Group', 'GROUP', 'group', proxyGroupHub],
+            constructorArguments: ['Mechain-Group', 'GROUP', 'group', proxyGroupHub],
         });
 
         await run('verify:verify', {
             address: permissionToken,
             constructorArguments: [
-                'GreenField-Permission',
+                'Mechain-Permission',
                 'PERMISSION',
                 'permission',
                 proxyPermissionHub,
