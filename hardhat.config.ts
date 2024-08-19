@@ -63,6 +63,36 @@ const config: HardhatUserConfig = {
                 process.env.DeployerPrivateKey || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',  // developer
             ]
         },
+        'linea': {
+            url: process.env.LINEA_RPC || 'https://linea.blockpi.network/v1/rpc/public',
+            accounts: [
+                process.env.DeployerPrivateKey || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',  // developer
+            ]
+        },
+        'scroll': {
+            url: process.env.SCROLL_RPC || 'https://scroll.drpc.org',
+            accounts: [
+                process.env.DeployerPrivateKey || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',  // developer
+            ]
+        },
+        'mantle': {
+            url: process.env.MANTLE_RPC || 'https://rpc.ankr.com/mantle',
+            accounts: [
+                process.env.DeployerPrivateKey || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',  // developer
+            ]
+        },
+        'arbitrum': {
+            url: process.env.ARBITRUM_RPC || 'https://api.stateless.solutions/arbitrum-one/v1/demo',
+            accounts: [
+                process.env.DeployerPrivateKey || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',  // developer
+            ]
+        },
+        'optimism': {
+            url: process.env.OPTIMISM_RPC || 'https://optimism.llamarpc.com',
+            accounts: [
+                process.env.DeployerPrivateKey || '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',  // developer
+            ]
+        },
         'goerli': {
             url: process.env.GOERLI_RPC || 'https://rpc.ankr.com/eth_goerli',
             accounts: [

@@ -40,8 +40,8 @@ contract CrossChain is Config, Initializable, ICrossChain {
 
     uint256 public relayFee;
     uint256 public minAckRelayFee;
-    uint16 public chainId;
-    uint16 public gnfdChainId;
+    uint32 public chainId;
+    uint32 public gnfdChainId;
     uint256 public batchSizeForOracle;
     uint256 public callbackGasPrice;
     uint256 public previousTxHeight;
@@ -124,7 +124,7 @@ contract CrossChain is Config, Initializable, ICrossChain {
     }
 
     /*----------------- external function -----------------*/
-    function initialize(uint16 _gnfdChainId, bool enableCrossChainTransfer) public initializer {
+    function initialize(uint32 _gnfdChainId, bool enableCrossChainTransfer) public initializer {
         require(_gnfdChainId != 0, "zero _gnfdChainId");
         require(PROXY_ADMIN != address(0), "zero PROXY_ADMIN");
         require(GOV_HUB != address(0), "zero GOV_HUB");
@@ -136,12 +136,12 @@ contract CrossChain is Config, Initializable, ICrossChain {
         require(OBJECT_HUB != address(0), "zero OBJECT_HUB");
         require(GROUP_HUB != address(0), "zero GROUP_HUB");
         require(ZKMESBT_HUB != address(0), "zero ZKMESBT_HUB");
-        require(block.chainid <= type(uint16).max, "chain id overflow");
+        require(block.chainid <= type(uint32).max, "chain id overflow");
 
         relayFee = 25 * 1e13;
         minAckRelayFee = 130 * 1e13;
 
-        chainId = uint16(block.chainid);
+        chainId = uint32(block.chainid);
         gnfdChainId = _gnfdChainId;
 
         // TODO register other channels
@@ -591,7 +591,7 @@ contract CrossChain is Config, Initializable, ICrossChain {
     /*----------------- internal function -----------------*/
     /*
     | SrcChainId | DestChainId | ChannelId | Sequence | PackageType | Timestamp | SynRelayerFee | AckRelayerFee(optional) | PackageLoad |
-    | 2 bytes    |  2 bytes    |  1 byte   |  8 bytes |  1 byte     |  8 bytes  | 32 bytes      | 32 bytes / 0 bytes      |   len bytes |
+    | 4 bytes    |  4 bytes    |  1 byte   |  8 bytes |  1 byte     |  8 bytes  | 32 bytes      | 32 bytes / 0 bytes      |   len bytes |
     */
 
     function _checkPayload(
@@ -610,45 +610,45 @@ contract CrossChain is Config, Initializable, ICrossChain {
             bytes memory packageLoad
         )
     {
-        if (payload.length < 54) {
+        if (payload.length < 58) {
             return (false, 0, 0, 0, 0, 0, 0, "");
         }
 
         bytes memory _payload = payload;
         uint256 ptr;
         {
-            uint16 srcChainId;
-            uint16 dstChainId;
+            uint32 srcChainId;
+            uint32 dstChainId;
             assembly {
                 ptr := _payload
 
-                srcChainId := mload(add(ptr, 2))
-                dstChainId := mload(add(ptr, 4))
+                srcChainId := mload(add(ptr, 4))
+                dstChainId := mload(add(ptr, 8))
             }
             require(srcChainId == gnfdChainId, "invalid source chainId");
             require(dstChainId == chainId, "invalid destination chainId");
         }
 
         assembly {
-            channelId := mload(add(ptr, 5))
-            sequence := mload(add(ptr, 13))
-            packageType := mload(add(ptr, 14))
-            time := mload(add(ptr, 22))
-            _relayFee := mload(add(ptr, 54))
+            channelId := mload(add(ptr, 9))
+            sequence := mload(add(ptr, 17))
+            packageType := mload(add(ptr, 18))
+            time := mload(add(ptr, 26))
+            _relayFee := mload(add(ptr, 58))
         }
 
         if (packageType == SYN_PACKAGE) {
-            if (payload.length < 86) {
+            if (payload.length < 90) {
                 return (false, 0, 0, 0, 0, 0, 0, "");
             }
 
             assembly {
-                _ackRelayFee := mload(add(ptr, 86))
+                _ackRelayFee := mload(add(ptr, 90))
             }
-            packageLoad = payload[86:];
+            packageLoad = payload[90:];
         } else {
             _ackRelayFee = 0;
-            packageLoad = payload[54:];
+            packageLoad = payload[58:];
         }
         success = true;
 

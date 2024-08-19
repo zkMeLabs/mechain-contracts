@@ -39,7 +39,7 @@ const main = async () => {
     log('operator.address: ', operator.address, toHuman(balance));
 
     // POLYGON Mainnet
-    if (network.chainId === 137) {
+    if (network.chainId === 59144) {
         if (!emergencyOperator) {
             throw new Error('emergencyOperator is not set');
         }

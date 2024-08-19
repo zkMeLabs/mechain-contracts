@@ -21,7 +21,7 @@ import "./middle-layer/resource-mirror/MultiMessage.sol";
 import "./middle-layer/GreenfieldExecutor.sol";
 
 contract Deployer {
-    uint16 public immutable gnfdChainId;
+    uint32 public immutable gnfdChainId;
 
     address public immutable proxyAdmin;
     address public immutable proxyGovHub;
@@ -71,7 +71,7 @@ contract Deployer {
         _;
     }
 
-    constructor(uint16 _gnfdChainId, bool _enableCrossChainTransfer) {
+    constructor(uint32 _gnfdChainId, bool _enableCrossChainTransfer) {
         operator = msg.sender;
         gnfdChainId = _gnfdChainId;
         enableCrossChainTransfer = _enableCrossChainTransfer;

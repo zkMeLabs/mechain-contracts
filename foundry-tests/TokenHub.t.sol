@@ -13,7 +13,7 @@ import "contracts/middle-layer/TokenHub.sol";
 import "../contracts/RelayerHub.sol";
 
 contract TokenHubTest is Test, TokenHub {
-    uint16 public constant gnfdChainId = 1;
+    uint32 public constant gnfdChainId = 1;
     bytes public constant blsPubKeys =
         hex"8ec21505e290d7c15f789c7b4c522179bb7d70171319bfe2d6b2aae2461a1279566782907593cc526a5f2611c0721d60b4a78719a34817cc1d085b6eed110ed1d1ca59a35c9cf4d094e4e71b0b8b76ac2d30ba0762ec9acfaca8b8b369d914e980e970c25a8580cb0d840dce6fff3adc830e16ec8660fb91c8811a28d8ada91d539f82d2730496549e7783a34167498c";
     address[] public relayers = [
@@ -145,7 +145,7 @@ contract TokenHubTest is Test, TokenHub {
 
         uint256 gasBefore = gasleft();
         _decodeTransferOutAckPackage(msgBytes);
-        console.log('_decodeTransferOutAckPackage gasUsed', gasBefore - gasleft());
+        console.log("_decodeTransferOutAckPackage gasUsed", gasBefore - gasleft());
     }
 
     function test_encode_fuzzy_test_case_1(uint256 amount, address recipient, address refundAddr) public {
@@ -163,7 +163,7 @@ contract TokenHubTest is Test, TokenHub {
     function test_fuzzy_test_case_1_abi_decode(uint256 amount, address recipient, address refundAddr) public {
         TransferOutSynPackage memory transOutSynPkg = TransferOutSynPackage(amount, recipient, refundAddr);
         bytes memory msgBytes = abi.encode(transOutSynPkg);
-        (TransferInSynPackage memory transInSynPkg) = abi.decode(msgBytes, (TransferInSynPackage));
+        TransferInSynPackage memory transInSynPkg = abi.decode(msgBytes, (TransferInSynPackage));
 
         assertEq(amount, transInSynPkg.amount);
         assertEq(recipient, transInSynPkg.recipient);
@@ -176,7 +176,7 @@ contract TokenHubTest is Test, TokenHub {
 
         uint256 gasBefore = gasleft();
         (TransferOutAckPackage memory transferOutAckPkg, bool success) = _decodeTransferOutAckPackage(msgBytes);
-        console.log('_decodeTransferOutAckPackage gasUsed', gasBefore - gasleft());
+        console.log("_decodeTransferOutAckPackage gasUsed", gasBefore - gasleft());
 
         assertEq(success, true, "decode transferOutAckPkg failed");
         assertEq(refundAmount, transInAckPkg.refundAmount);
