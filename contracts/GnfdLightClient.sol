@@ -8,6 +8,7 @@ import "./interface/ILightClient.sol";
 import "./lib/Memory.sol";
 import "./lib/BytesToTypes.sol";
 import "./lib/BytesLib.sol";
+import "./lib/BLS.sol";
 
 contract GnfdLightClient is Initializable, Config, ILightClient {
     struct Validator {
@@ -30,12 +31,12 @@ contract GnfdLightClient is Initializable, Config, ILightClient {
     uint256 public constant VALIDATOR_PUB_KEY_LENGTH = 32;
     uint256 public constant VALIDATOR_VOTING_POWER_LENGTH = 8;
     uint256 public constant RELAYER_ADDRESS_LENGTH = 20;
-    uint256 public constant RELAYER_BLS_KEY_LENGTH = 48;
+    uint256 public constant RELAYER_BLS_KEY_LENGTH = 128;
 
     uint256 public constant VALIDATOR_BYTES_LENGTH =
         VALIDATOR_PUB_KEY_LENGTH + VALIDATOR_VOTING_POWER_LENGTH + RELAYER_ADDRESS_LENGTH + RELAYER_BLS_KEY_LENGTH;
     uint256 public constant MESSAGE_HASH_LENGTH = 32;
-    uint256 public constant BLS_SIGNATURE_LENGTH = 96;
+    uint256 public constant BLS_SIGNATURE_LENGTH = 64;
 
     /* --------------------- 2. storage --------------------- */
     bytes32 public chainID;
@@ -54,6 +55,7 @@ contract GnfdLightClient is Initializable, Config, ILightClient {
     event InitConsensusState(uint64 height);
     event UpdatedConsensusState(uint64 height, bool validatorSetChanged);
     event ParamChange(string key, bytes value);
+    // event PrintVerifyParams(bytes indexed msg, bytes indexed signature, bytes indexed input);
 
     /* --------------------- 4. functions -------------------- */
     modifier onlyRelayer() {
@@ -128,17 +130,22 @@ contract GnfdLightClient is Initializable, Config, ILightClient {
         uint256 bitCount;
         bytes32 msgHash = keccak256(_payload);
         bytes memory tmpBlsSig = _blsSignature;
-        bytes memory input = abi.encodePacked(abi.encode(msgHash), tmpBlsSig);
+        bytes memory input;
         for (uint256 i = 0; i < validatorSet.length; i++) {
             if ((_validatorSetBitMap & (0x1 << i)) != 0) {
+                if (bitCount != 0) {
+                    input = abi.encodePacked(input, validatorSet[i].relayerBlsKey);
+                } else {
+                    input = abi.encodePacked(validatorSet[i].relayerBlsKey);
+                }
                 bitCount++;
-                input = abi.encodePacked(input, validatorSet[i].relayerBlsKey);
             }
         }
         require(bitCount > (validatorSet.length * 2) / 3, "no majority validators");
 
-        (bool success, bytes memory result) = PACKAGE_VERIFY_CONTRACT.staticcall(input);
-        return success && result.length > 0;
+        // emit PrintVerifyParams(abi.encode(msgHash), tmpBlsSig, input);
+        (bool callsuccess, bool callresult) = BLS.blsAggSignsVerification(tmpBlsSig, input, abi.encodePacked(msgHash));
+        return callresult && callsuccess;
     }
 
     function verifyRelayerAndPackage(
@@ -204,7 +211,7 @@ contract GnfdLightClient is Initializable, Config, ILightClient {
     // TODO we will optimize the gas consumption here.
     // input:
     // | chainID   | height   | nextValidatorSetHash | [{validator pubkey, voting power, relayer address, relayer bls pubkey}] |
-    // | 32 bytes  | 8 bytes  | 32 bytes             | [{32 bytes, 8 bytes, 20 bytes, 48 bytes}]                               |
+    // | 32 bytes  | 8 bytes  | 32 bytes             | [{32 bytes, 8 bytes, 20 bytes, 128 bytes}]                               |
     function updateConsensusState(uint256 ptr, uint256 size, bool validatorSetChanged, uint64 expectHeight) internal {
         require(size > CONSENSUS_STATE_BASE_LENGTH, "cs length too short");
         require((size - CONSENSUS_STATE_BASE_LENGTH) % VALIDATOR_BYTES_LENGTH == 0, "invalid cs length");

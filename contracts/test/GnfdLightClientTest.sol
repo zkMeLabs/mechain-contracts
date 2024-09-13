@@ -30,12 +30,12 @@ contract GnfdLightClientTest is Initializable, Config, ILightClient {
     uint256 public constant VALIDATOR_PUB_KEY_LENGTH = 32;
     uint256 public constant VALIDATOR_VOTING_POWER_LENGTH = 8;
     uint256 public constant RELAYER_ADDRESS_LENGTH = 20;
-    uint256 public constant RELAYER_BLS_KEY_LENGTH = 48;
+    uint256 public constant RELAYER_BLS_KEY_LENGTH = 128;
 
     uint256 public constant VALIDATOR_BYTES_LENGTH =
         VALIDATOR_PUB_KEY_LENGTH + VALIDATOR_VOTING_POWER_LENGTH + RELAYER_ADDRESS_LENGTH + RELAYER_BLS_KEY_LENGTH;
     uint256 public constant MESSAGE_HASH_LENGTH = 32;
-    uint256 public constant BLS_SIGNATURE_LENGTH = 96;
+    uint256 public constant BLS_SIGNATURE_LENGTH = 64;
 
     /* --------------------- 2. storage --------------------- */
     bytes32 public chainID;
@@ -202,7 +202,7 @@ contract GnfdLightClientTest is Initializable, Config, ILightClient {
     // TODO we will optimize the gas consumption here.
     // input:
     // | chainID   | height   | nextValidatorSetHash | [{validator pubkey, voting power, relayer address, relayer bls pubkey}] |
-    // | 32 bytes  | 8 bytes  | 32 bytes             | [{32 bytes, 8 bytes, 20 bytes, 48 bytes}]                               |
+    // | 32 bytes  | 8 bytes  | 32 bytes             | [{32 bytes, 8 bytes, 20 bytes, 128 bytes}]                               |
     function updateConsensusState(uint256 ptr, uint256 size, bool validatorSetChanged, uint64 expectHeight) internal {
         require(size > CONSENSUS_STATE_BASE_LENGTH, "cs length too short");
         require((size - CONSENSUS_STATE_BASE_LENGTH) % VALIDATOR_BYTES_LENGTH == 0, "invalid cs length");

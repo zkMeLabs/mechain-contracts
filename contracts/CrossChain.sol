@@ -231,10 +231,10 @@ contract CrossChain is Config, Initializable, ICrossChain {
 
         // 2. check valid relayer And 3. verify bls signature
         // just uncomment in bsc/opbnb
-        // require(
-        //     ILightClient(LIGHT_CLIENT).verifyRelayerAndPackage(eventTime, _payload, _blsSignature, _validatorsBitSet),
-        //     "cross chain package not verified"
-        // );
+        require(
+            ILightClient(LIGHT_CLIENT).verifyRelayerAndPackage(eventTime, _payload, _blsSignature, _validatorsBitSet),
+            "cross chain package not verified"
+        );
 
         // 4. handle package
         address _handler = channelHandlerMap[channelId];
