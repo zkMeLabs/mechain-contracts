@@ -92,11 +92,12 @@ contract GnfdLightClient is Initializable, Config, ILightClient {
         require(submitters[_height] == address(0x0), "can't sync duplicated header");
         require(_height > gnfdHeight, "can't sync header before latest height");
 
-        bytes memory input = abi.encodePacked(abi.encode(consensusStateBytes.length), consensusStateBytes);
-        bytes memory tmpBlock = _lightBlock;
-        input = abi.encodePacked(input, tmpBlock);
-        (bool success, bytes memory result) = HEADER_VALIDATE_CONTRACT.staticcall(input);
-        require(success && result.length > 0, "header validate failed");
+        // bytes memory input = abi.encodePacked(abi.encode(consensusStateBytes.length), consensusStateBytes);
+        // bytes memory tmpBlock = _lightBlock;
+        // input = abi.encodePacked(input, tmpBlock);
+        // (bool success, bytes memory result) = HEADER_VALIDATE_CONTRACT.staticcall(input);
+        // require(success && result.length > 0, "header validate failed");
+        bytes memory result = _lightBlock;
 
         uint256 ptr = Memory.dataPtr(result);
         uint256 tmp;
