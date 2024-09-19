@@ -1,25 +1,25 @@
-# Greenfield Contracts
+# Mechain Contracts
 
-Greenfield Contracts is the bridge between Greenfield and BSC for cross-chain communication.
+Mechain Contracts is the bridge between Mechain and ethereum-compatible chain for cross-chain communication.
 
 ## Overview
 
-The Greenfield Blockchain provides a comprehensive set of resources that can be mirrored on the BNB Smart Chain (BSC).
-This includes buckets, objects, and groups, which can be stored and managed on the BSC as non-fungible tokens (NFTs)
+The Mechain Blockchain provides a comprehensive set of resources that can be mirrored on the ethereum-compatible chain.
+This includes buckets, objects, and groups, which can be stored and managed on the ethereum-compatible chain as non-fungible tokens (NFTs)
 conforming to the ERC-721 standard.
 
-A bucket is a logical container for storing objects in Greenfield. An object, on the other hand, is a fundamental unit
-of storage in Greenfield that represents a file consisting of data and its associated metadata.
+A bucket is a logical container for storing objects in Mechain. An object, on the other hand, is a fundamental unit
+of storage in Mechain that represents a file consisting of data and its associated metadata.
 Lastly, a group is a collection of accounts with the same permissions.
 
-These resources can be mirrored on the BSC as ERC-721 NFTs, along with the members within a group, which represent
+These resources can be mirrored on the ethereum-compatible chain as ERC-721 NFTs, along with the members within a group, which represent
 permissions to specify resources, that can be mirrored as ERC-1155 token. At present, the NFTs are not transferable,
 but the transferability feature will be added in the near future.
 
-Once these resources are mirrored on BSC, they can be directly managed by smart contracts on BSC.
-These operations will directly affect the storage format, access permissions, and other aspects of the data on greenfield.
-In other words, any changes made to the decentralized application on BSC will also reflect changes on Greenfield.
-This integration between Greenfield Blockchain and BNB Smart Chain allows for greater flexibility and accessibility
+Once these resources are mirrored on ethereum-compatible chain, they can be directly managed by smart contracts on ethereum-compatible chain.
+These operations will directly affect the storage format, access permissions, and other aspects of the data on Mechain.
+In other words, any changes made to the decentralized application on ethereum-compatible chain will also reflect changes on Mechain.
+This integration between Mechain Blockchain and BNB Smart Chain allows for greater flexibility and accessibility
 when it comes to accessing and manipulating data, ultimately leading to a more streamlined and efficient
 data management process.
 
@@ -28,48 +28,44 @@ data management process.
 1. **CrossChain**. The underlying cross-chain communication protocol. This contract is responsible for handling
    all aspects of cross-chain communication packages, including verification, encoding, decoding, routing, reward distribution.
 2. **GovHub**. This contract oversees all aspects of contract upgrades, parameter adjustments, and handles governance
-   requests originating from the `Greenfield`. Additionally, it validates and executes governance proposals as required.
+   requests originating from the `Mechain`. Additionally, it validates and executes governance proposals as required.
 3. **TokenHub**. This contract is tasked with handling cross-chain transactions, encompassing both `transferIn` and
-   `transferOut`. Upon initiating a cross-chain transfer from the `Greenfield` to the BSC, tokens are initially locked within
+   `transferOut`. Upon initiating a cross-chain transfer from the `Mechain` to the ethereum-compatible chain, tokens are initially locked within
    the `TokenHub`, subsequently triggering a cross-chain transfer event.
-4. **GroupHub**. This contract is responsible for managing the `Greenfield` group,
+4. **GroupHub**. This contract is responsible for managing the `Mechain` group,
    including the addition and removal of members.
-5. **BucketHub**. This contract is responsible for managing the `Greenfield` buckets.
-6. **ObjectHub**. This contract is responsible for managing the `Greenfield` objects.
+5. **BucketHub**. This contract is responsible for managing the `Mechain` buckets.
+6. **ObjectHub**. This contract is responsible for managing the `Mechain` objects.
 
 ## Resource Operating Primitives
 
-A number of cross-chain primitives have been defined on BSC to enable developers to manage greenfield resources on the
-BSC directly, without the need for intermediaries.
-
-**BNB**:
-
-- transfer BNB bidirectionally between BSC and Greenfield
+A number of cross-chain primitives have been defined on ethereum-compatible chain to enable developers to manage Mechain resources on the
+ethereum-compatible chain directly, without the need for intermediaries.
 
 **Bucket**:
 
-- create a bucket on BSC
-- delete a bucket on BSC
-- mirror bucket from Greenfield to BSC
+- create a bucket on ethereum-compatible chain
+- delete a bucket on ethereum-compatible chain
+- mirror bucket from Mechain to ethereum-compatible chain
 
 **Object**:
 
-- delete an object on BSC
-- mirror object from Greenfield to BSC
-- grant/revoke permissions of objects on BSC to accounts/groups
-- create an object on BSC (pending)
-- copy objects on BSC (pending)
-- Kick off the execution of an object on BSC (pending)
+- delete an object on ethereum-compatible chain
+- mirror object from Mechain to ethereum-compatible chain
+- grant/revoke permissions of objects on ethereum-compatible chain to accounts/groups
+- create an object on ethereum-compatible chain (pending)
+- copy objects on ethereum-compatible chain (pending)
+- Kick off the execution of an object on ethereum-compatible chain (pending)
 
 **Group**:
 
-- create a group on BSC
-- delete a group on BSC
-- change group members on BSC
-- mirror group from Greenfield to BSC
+- create a group on ethereum-compatible chain
+- delete a group on ethereum-compatible chain
+- change group members on ethereum-compatible chain
+- mirror group from Mechain to ethereum-compatible chain
 
 Users can also approve smart contracts to operate the aforementioned resources instead, check the
-[design](https://greenfield.bnbchain.org/docs/guide/dapp/permisson-control.html) for more details.
+[design](https://Mechain.bnbchain.org/docs/guide/dapp/permisson-control.html) for more details.
 
 ## Requirement
 
@@ -80,7 +76,7 @@ set environment
 cp .env.example .env
 # modify the env variable `DeployerPrivateKey` to your own private key
 
-# make sure the address corresponding to the private key has enough tBNB in the BSC Testnet
+# make sure the address corresponding to the private key has enough tBNB in the ethereum-compatible chain Testnet
 ```
 
 Install foundry:
@@ -112,38 +108,38 @@ make build
 ## Deploy
 
 ```shell
-# modify the env variable `DeployerPrivateKey` to your own private key on BSC Testnet
+# modify the env variable `DeployerPrivateKey` to your own private key on ethereum-compatible chain Testnet
 npm run deploy:testnet
 
-# modify the env variable `DeployerPrivateKey` to your own private key on BSC
-npm run deploy:bsc
+# modify the env variable `DeployerPrivateKey` to your own private key on ethereum-compatible chain
+npm run deploy:ethereum-compatible chain
 ```
 
 ## Deployment
 
-### Greenfield Contracts on BSC
+### Mechain Contracts on ethereum-compatible chain
 
-- BSC ChainID: 56
-- BSC RPC: <https://bsc-dataseed1.binance.org>
-- BSC Explorer: <https://bscscan.com/>
+- ethereum-compatible chain ChainID: 56
+- ethereum-compatible chain RPC: <<https://ethereum-compatible> chain-dataseed1.binance.org>
+- ethereum-compatible chain Explorer: <<https://ethereum-compatible> chainscan.com/>
 
-- Greenfield ChainID: greenfield_1017-1
-- Greenfield RPC: <https://greenfield-chain.bnbchain.org:443>
-- Greenfield GRPC swagger: <https://greenfield-chain.bnbchain.org/openapi>
-- Greenfield Storage dApp: <https://dcellar.io/>
-- Greenfield Explorer: <http://greenfieldscan.com/>
+- Mechain ChainID: mechain_5151-1
+- Mechain RPC: <https://Mechain-chain.bnbchain.org:443>
+- Mechain GRPC swagger: <https://Mechain-chain.bnbchain.org/openapi>
+- Mechain Storage dApp: <https://dcellar.io/>
+- Mechain Explorer: <http://Mechainscan.com/>
 
-### Greenfield Contracts on BSC Testnet
+### Mechain Contracts on ethereum-compatible chain Testnet
 
-- BSC Testnet ChainID: 97
-- BSC Testnet RPC: <https://data-seed-prebsc-1-s1.binance.org:8545/>
-- BSC Testnet Explorer: <https://testnet.bscscan.com/>
+- ethereum-compatible chain Testnet ChainID: 97
+- ethereum-compatible chain Testnet RPC: <<https://data-seed-preethereum-compatible> chain-1-s1.binance.org:8545/>
+- ethereum-compatible chain Testnet Explorer: <<https://testnet.ethereum-compatible> chainscan.com/>
 
-- Greenfield ChainID: greenfield_5600-1
-- Greenfield RPC: <https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org>
-- Greenfield GRPC swagger: <https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org/openapi>
-- Greenfield Storage dApp: <https://dcellar.io/>
-- Greenfield Explorer: <http://greenfieldscan.com/>
+- Mechain ChainID: Mechain_5600-1
+- Mechain RPC: <https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org>
+- Mechain GRPC swagger: <https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org/openapi>
+- Mechain Storage dApp: <https://dcellar.io/>
+- Mechain Explorer: <http://Mechainscan.com/>
 
 ### ERC2771Forwarder
 
@@ -180,7 +176,7 @@ Extra:
 | RelayerHub    | 0x31C477F05CE58bB81A9FB4b8c00560f1cBe185d1 |
 
 for full list of contracts, please refer to:
-[Deployment on BSC](https://github.com/bnb-chain/greenfield-contracts/blob/master/deployment/56-deployment.json)
+[Deployment on ethereum-compatible chain](https://github.com/bnb-chain/Mechain-contracts/blob/master/deployment/56-deployment.json)
 
 ### Testnet
 
@@ -202,60 +198,60 @@ Extra:
 | RelayerHub    | 0x91cA83d95c8454277d1C297F78082B589e6E4Ea3 |
 
 for full list of contracts, please refer to:
-[Deployment on BSC Testnet](https://github.com/bnb-chain/greenfield-contracts/blob/master/deployment/97-deployment.json)
+[Deployment on ethereum-compatible chain Testnet](https://github.com/bnb-chain/Mechain-contracts/blob/master/deployment/97-deployment.json)
 
-## Verify on BSCScan
+## Verify on ethereum-compatible chainScan
 
 ```shell
-# modify the env variable `BSCSCAN_APIKEY` to your own api-key created on https://bscscan.com/myapikey
+# modify the env variable `ethereum-compatible chainSCAN_APIKEY` to your own api-key created on https://ethereum-compatible chainscan.com/myapikey
 npm run verify:testnet
-npm run verify:bsc
+npm run verify:ethereum-compatible chain
 ```
 
-## Cross-Chain Transfer to GreenField
+## Cross-Chain Transfer to Mechain
 
 ```shell
 # make sure the foundry dependency are installed 
 # 1. add private-key, receiver and BNB amount to ./foundry-scripts/transferOut.sh
 # 2. run shell command
-# cross-chain transfer 0.2 BNB (amount = 2 * 10 ^ 17) to your receiver on GreenField
-forge script foundry-scripts/TokenHub.s.sol:TokenHubScript \
+# cross-chain transfer 0.2 BNB (amount = 2 * 10 ^ 17) to your receiver on Mechain
+forge script foundry-scripts/TokenHub.s.sol:TokenHuethereum-compatible chainript \
 --private-key ${your private key} \
 --sig "transferOut(address receiver, uint256 amount)" \
 ${the receiver you transfer to} 200000000000000000  \
--f https://data-seed-prebsc-1-s1.binance.org:8545/  \
+-f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/  \
 --legacy --ffi --broadcast
 # More examples please refer to ./foundry-scripts/examples/transferOut.sh
 ```
 
-## Cross-Chain Operation to GreenField
+## Cross-Chain Operation to Mechain
 
 ```shell
 # make sure the foundry dependency are installed 
 # group operation - add member to the group
-forge script foundry-scripts/GroupHub.s.sol:GroupHubScript \
+forge script foundry-scripts/GroupHub.s.sol:GroupHuethereum-compatible chainript \
 --private-key ${your private key} \
 --sig "addMember(address operator, uint256 groupId, address member)" \
 ${the owner of the group} ${your group id} ${the member address to add} \
--f https://data-seed-prebsc-1-s1.binance.org:8545/ \
+-f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/ \
 --legacy --ffi --broadcast
 # More examples please refer to ./foundry-scripts/examples/updateGroup.sh
 
 # bucket operation - delete a bucket
-forge script foundry-scripts/BucketHub.s.sol:BucketHubScript \
+forge script foundry-scripts/BucketHub.s.sol:BucketHuethereum-compatible chainript \
 --private-key ${your private key} \
 --sig "deleteBucket(uint256 bucketId)" \
 ${bucketId to delete} \
--f https://data-seed-prebsc-1-s1.binance.org:8545/ \
+-f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/ \
 --legacy --ffi --broadcast
 # More examples please refer to ./foundry-scripts/examples/bucketHub.sh
 
 # object operation - delete an object
-forge script foundry-scripts/ObjectHub.s.sol:ObjectHubScript \
+forge script foundry-scripts/ObjectHub.s.sol:ObjectHuethereum-compatible chainript \
 --private-key ${your private key} \
 --sig "deleteObject(uint256 id)" \
 ${object id to delete} \
--f https://data-seed-prebsc-1-s1.binance.org:8545/ \
+-f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/ \
 --legacy --ffi --broadcast
 ```
 
@@ -263,11 +259,11 @@ ${object id to delete} \
 
 ```shell
 # 1. add your txHash to `InspectTxHashes` on `scripts/3-decode-events.ts`
-# 2. run script on BSC testnet
-npx hardhat run scripts/3-decode-events.ts --network bsc-testnet
+# 2. run script on ethereum-compatible chain testnet
+npx hardhat run scripts/3-decode-events.ts --network ethereum-compatible chain-testnet
 
-# run script on BSC
-npx hardhat run scripts/3-decode-events.ts --network bsc
+# run script on ethereum-compatible chain
+npx hardhat run scripts/3-decode-events.ts --network ethereum-compatible chain
 ```
 
 ## Test
@@ -297,7 +293,7 @@ ts-node scripts/6-claim-unlock-bot.ts
 Thank you for considering helping with the source code! We appreciate contributions from anyone on the internet, no
 matter how small the fix may be.
 
-If you would like to contribute to Greenfield, please follow these steps: fork the project, make your changes, commit them,
+If you would like to contribute to Mechain, please follow these steps: fork the project, make your changes, commit them,
 and send a pull request to the maintainers for review and merge into the main codebase. However, if you plan on submitting
 more complex changes, we recommend checking with the core developers first via GitHub issues (we will soon have a Discord channel)
 to ensure that your changes align with the project's general philosophy. This can also help reduce the workload of both
@@ -305,6 +301,10 @@ parties and streamline the review and merge process.
 
 ## License
 
-The greenfield contracts (i.e. all code inside the `contracts` directory) are licensed under the
+The Mechain contracts (i.e. all code inside the `contracts` directory) are licensed under the
 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.en.html), also
 included in our repository in the `COPYING` file.
+
+## Fork Information
+
+This project is forked from [Mechain-contracts](https://github.com/bnb-chain/Mechain-contracts). Significant changes have been made to adapt the project for specific use cases, but much of the core functionality comes from the original project.
