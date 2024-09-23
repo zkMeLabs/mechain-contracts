@@ -16,12 +16,8 @@ These resources can be mirrored on the ethereum-compatible chain as ERC-721 NFTs
 permissions to specify resources, that can be mirrored as ERC-1155 token. At present, the NFTs are not transferable,
 but the transferability feature will be added in the near future.
 
-Once these resources are mirrored on ethereum-compatible chain, they can be directly managed by smart contracts on ethereum-compatible chain.
-These operations will directly affect the storage format, access permissions, and other aspects of the data on Mechain.
-In other words, any changes made to the decentralized application on ethereum-compatible chain will also reflect changes on Mechain.
-This integration between Mechain Blockchain and BNB Smart Chain allows for greater flexibility and accessibility
-when it comes to accessing and manipulating data, ultimately leading to a more streamlined and efficient
-data management process.
+Once these resources are mirrored on ethereum-compatible chain, they can be only read by smart contracts on ethereum-compatible chain(can be directly managed by admin account).
+
 
 ## Key Contract
 
@@ -44,24 +40,24 @@ ethereum-compatible chain directly, without the need for intermediaries.
 
 **Bucket**:
 
-- create a bucket on ethereum-compatible chain
-- delete a bucket on ethereum-compatible chain
+- create a bucket on ethereum-compatible chain(only admin account)
+- delete a bucket on ethereum-compatible chain(only admin account)
 - mirror bucket from Mechain to ethereum-compatible chain
 
 **Object**:
 
-- delete an object on ethereum-compatible chain
+- delete an object on ethereum-compatible chain(only admin account)
 - mirror object from Mechain to ethereum-compatible chain
-- grant/revoke permissions of objects on ethereum-compatible chain to accounts/groups
+- grant/revoke permissions of objects on ethereum-compatible chain to accounts/groups(only admin account)
 - create an object on ethereum-compatible chain (pending)
 - copy objects on ethereum-compatible chain (pending)
 - Kick off the execution of an object on ethereum-compatible chain (pending)
 
 **Group**:
 
-- create a group on ethereum-compatible chain
-- delete a group on ethereum-compatible chain
-- change group members on ethereum-compatible chain
+- create a group on ethereum-compatible chain(only admin account)
+- delete a group on ethereum-compatible chain(only admin account)
+- change group members on ethereum-compatible chain(only admin account)
 - mirror group from Mechain to ethereum-compatible chain
 
 Users can also approve smart contracts to operate the aforementioned resources instead, check the
@@ -119,27 +115,62 @@ npm run deploy:ethereum-compatible chain
 
 ### Mechain Contracts on ethereum-compatible chain
 
-- ethereum-compatible chain ChainID: 56
-- ethereum-compatible chain RPC: <<https://ethereum-compatible> chain-dataseed1.binance.org>
-- ethereum-compatible chain Explorer: <<https://ethereum-compatible> chainscan.com/>
+#### Optimism
+- ChainID: 10
+- Explorer: <https://optimistic.etherscan.io/>
+- Mechain ChainID: mechain_5252-1
 
-- Mechain ChainID: mechain_5151-1
-- Mechain RPC: <https://Mechain-chain.bnbchain.org:443>
-- Mechain GRPC swagger: <https://Mechain-chain.bnbchain.org/openapi>
-- Mechain Storage dApp: <https://dcellar.io/>
-- Mechain Explorer: <http://Mechainscan.com/>
+#### BSC
+- ChainID: 56
+- Explorer: <https://bscscan.com/>
+- Mechain ChainID: mechain_5252-1
+
+#### Polygon
+- ChainID: 137
+- Explorer: <https://polygonscan.com/>
+- Mechain ChainID: mechain_5252-1
+
+#### opBNB
+- ChainID: 204
+- Explorer: <https://opbnb.bscscan.com/>
+- Mechain ChainID: mechain_5252-1
+
+#### Mantle
+- ChainID: 5000
+- Explorer: <https://mantlescan.xyz/>
+- Mechain ChainID: mechain_5252-1
+
+#### Arbitrum
+- ChainID: 42161
+- Explorer: <https://arbiscan.io/>
+- Mechain ChainID: mechain_5252-1
+
+#### Linea
+- ChainID: 59144
+- Explorer: <https://lineascan.build/>
+- Mechain ChainID: mechain_5252-1
+
+#### Scroll
+- ChainID: 534352
+- Explorer: <https://scrollscan.com/>
+- Mechain ChainID: mechain_5252-1
 
 ### Mechain Contracts on ethereum-compatible chain Testnet
 
-- ethereum-compatible chain Testnet ChainID: 97
-- ethereum-compatible chain Testnet RPC: <<https://data-seed-preethereum-compatible> chain-1-s1.binance.org:8545/>
-- ethereum-compatible chain Testnet Explorer: <<https://testnet.ethereum-compatible> chainscan.com/>
+#### BSC Testnet
+- ChainID: 97
+- Explorer: <https://testnet.bscscan.com/>
+- Mechain ChainID: mechain_5151-1
 
-- Mechain ChainID: Mechain_5600-1
-- Mechain RPC: <https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org>
-- Mechain GRPC swagger: <https://gnfd-testnet-fullnode-tendermint-us.bnbchain.org/openapi>
-- Mechain Storage dApp: <https://dcellar.io/>
-- Mechain Explorer: <http://Mechainscan.com/>
+#### opBNB Testnet
+- ChainID: 5611
+- Explorer: <https://opbnb-testnet.bscscan.com/>
+- Mechain ChainID: mechain_5151-1
+
+#### Linea Sepolia
+- ChainID: 59141
+- Explorer: <https://sepolia.lineascan.build/>
+- Mechain ChainID: mechain_5151-1
 
 ### ERC2771Forwarder
 
@@ -159,46 +190,46 @@ More details, refer to
 ### Mainnet
 
 | contract name | address                                    |
-|---------------|--------------------------------------------|
-| CrossChain    | 0x77e719b714be09F70D484AB81F70D02B0E182f7d |
-| TokenHub      | 0xeA97dF87E6c7F68C9f95A69dA79E19B834823F25 |
-| BucketHub     | 0xE909754263572F71bc6aFAc837646A93f5818573 |
-| ObjectHub     | 0x634eB9c438b8378bbdd8D0e10970Ec88db0b4d0f |
-| GroupHub      | 0xDd9af4573D64324125fCa5Ce13407be79331B7F7 |
+| ------------- | ------------------------------------------ |
+| CrossChain    | 0x41FB8A469f4380141E31d17e3fd27eC8AFF596B0 |
+| TokenHub      | 0x32CdeAA01b1Ec091bE4366803e2d6FE49b5b59da |
+| BucketHub     | 0x800fa19D39b0d9Ae20ccEf062439dA7340B30EA9 |
+| ObjectHub     | 0xB737C6530f6BADc78Eb56395C838c4222CdbE8D8 |
+| GroupHub      | 0xf8fB9187D72E154aA0d448754c6368Ca357d2D23 |
 
 Extra:
 
 | contract name | address                                    |
-|---------------|--------------------------------------------|
-| Deployer      | 0x4763c12b21a548BCbD22a682fb15930565e27C43 |
-| ProxyAdmin    | 0xf9010DC773eE3961418C96dc67Fc5DcCB3EA2C08 |
-| LightClient   | 0x433bB48Bd86c089375e53b2E2873A9C4bC0e986B |
-| RelayerHub    | 0x31C477F05CE58bB81A9FB4b8c00560f1cBe185d1 |
+| ------------- | ------------------------------------------ |
+| Deployer      | 0x40919E586BD833857e847E6e8734F0b5D5afAE63 |
+| ProxyAdmin    | 0xe0B327f0811ed1269722ddE6e8b07e6C16c4E9a9 |
+| LightClient   | 0x659A2Bf95b12537af74425d22B85cfC09908923F |
+| RelayerHub    | 0xA3235195c0b325d969Bdb4ce8263Df06bbc0c4A5 |
 
 for full list of contracts, please refer to:
-[Deployment on ethereum-compatible chain](https://github.com/bnb-chain/Mechain-contracts/blob/master/deployment/56-deployment.json)
+[Deployment on Polygon](https://github.com/zkMeLabs/mechain-contracts/blob/develop/deployment/137-deployment.json)
 
 ### Testnet
 
 | contract name | address                                    |
-|---------------|--------------------------------------------|
-| CrossChain    | 0xa5B2c9194131A4E0BFaCbF9E5D6722c873159cb7 |
-| TokenHub      | 0xED8e5C546F84442219A5a987EE1D820698528E04 |
-| BucketHub     | 0x5BB17A87D03620b313C39C24029C94cB5714814A |
-| ObjectHub     | 0x1b059D8481dEe299713F18601fB539D066553e39 |
-| GroupHub      | 0x50B3BF0d95a8dbA57B58C82dFDB5ff6747Cc1a9E |
+| ------------- | ------------------------------------------ |
+| CrossChain    | 0x3CeC77c96294634dA18AE89e0E18268Dc8E14714 |
+| TokenHub      | 0xC38e9565928F0C979BA7EBD40d617D2981e79A15 |
+| BucketHub     | 0x05b93fBA10404501d898929a9c5C96f3B7F2ab35 |
+| ObjectHub     | 0xECb9df63b9C55b241e36E48041E35240263Bcb3C |
+| GroupHub      | 0x7Db585e110b8808d7B2D50b845d54444a0e7026E |
 
 Extra:
 
 | contract name | address                                    |
-|---------------|--------------------------------------------|
-| Deployer      | 0x79aC4Ce73Cf5c4896a311CD39d2EB47E604D18E3 |
-| ProxyAdmin    | 0xdD1c0a54a9EDEa8d0821AEB5BE54c51B79fa4c2e |
-| LightClient   | 0xa9249cefF9cBc9BAC0D9167b79123b6C7413F50a |
-| RelayerHub    | 0x91cA83d95c8454277d1C297F78082B589e6E4Ea3 |
+| ------------- | ------------------------------------------ |
+| Deployer      | 0x36BF4Abe28648f1Ce64e4f688458eEad051eDd16 |
+| ProxyAdmin    | 0x0744364EcDCf6637DBf0f14729dDAB361321F376 |
+| LightClient   | 0x746697dBcf194Ca2C632EFB1EeA640E766d3C6b8 |
+| RelayerHub    | 0x8709Eb27ef5A3E5CB3B43c0f96C1fc63026Bfd0D |
 
 for full list of contracts, please refer to:
-[Deployment on ethereum-compatible chain Testnet](https://github.com/bnb-chain/Mechain-contracts/blob/master/deployment/97-deployment.json)
+[Deployment on BSC Testnet](https://github.com/zkMeLabs/mechain-contracts/blob/develop/deployment/97-deployment.json)
 
 ## Verify on ethereum-compatible chainScan
 
@@ -206,53 +237,6 @@ for full list of contracts, please refer to:
 # modify the env variable `ethereum-compatible chainSCAN_APIKEY` to your own api-key created on https://ethereum-compatible chainscan.com/myapikey
 npm run verify:testnet
 npm run verify:ethereum-compatible chain
-```
-
-## Cross-Chain Transfer to Mechain
-
-```shell
-# make sure the foundry dependency are installed 
-# 1. add private-key, receiver and BNB amount to ./foundry-scripts/transferOut.sh
-# 2. run shell command
-# cross-chain transfer 0.2 BNB (amount = 2 * 10 ^ 17) to your receiver on Mechain
-forge script foundry-scripts/TokenHub.s.sol:TokenHuethereum-compatible chainript \
---private-key ${your private key} \
---sig "transferOut(address receiver, uint256 amount)" \
-${the receiver you transfer to} 200000000000000000  \
--f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/  \
---legacy --ffi --broadcast
-# More examples please refer to ./foundry-scripts/examples/transferOut.sh
-```
-
-## Cross-Chain Operation to Mechain
-
-```shell
-# make sure the foundry dependency are installed 
-# group operation - add member to the group
-forge script foundry-scripts/GroupHub.s.sol:GroupHuethereum-compatible chainript \
---private-key ${your private key} \
---sig "addMember(address operator, uint256 groupId, address member)" \
-${the owner of the group} ${your group id} ${the member address to add} \
--f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/ \
---legacy --ffi --broadcast
-# More examples please refer to ./foundry-scripts/examples/updateGroup.sh
-
-# bucket operation - delete a bucket
-forge script foundry-scripts/BucketHub.s.sol:BucketHuethereum-compatible chainript \
---private-key ${your private key} \
---sig "deleteBucket(uint256 bucketId)" \
-${bucketId to delete} \
--f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/ \
---legacy --ffi --broadcast
-# More examples please refer to ./foundry-scripts/examples/bucketHub.sh
-
-# object operation - delete an object
-forge script foundry-scripts/ObjectHub.s.sol:ObjectHuethereum-compatible chainript \
---private-key ${your private key} \
---sig "deleteObject(uint256 id)" \
-${object id to delete} \
--f https://data-seed-preethereum-compatible chain-1-s1.binance.org:8545/ \
---legacy --ffi --broadcast
 ```
 
 ## Inspect Transactions
@@ -307,4 +291,4 @@ included in our repository in the `COPYING` file.
 
 ## Fork Information
 
-This project is forked from [Mechain-contracts](https://github.com/bnb-chain/Mechain-contracts). Significant changes have been made to adapt the project for specific use cases, but much of the core functionality comes from the original project.
+This project is forked from [greenfield-contracts](https://github.com/bnb-chain/greenfield-contracts). Significant changes have been made to adapt the project for specific use cases, but much of the core functionality comes from the original project.
