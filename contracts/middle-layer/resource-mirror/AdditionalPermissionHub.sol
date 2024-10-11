@@ -19,7 +19,7 @@ contract AdditionalPermissionHub is PermissionStorage {
     uint8 private _initialized;
     bool private _initializing;
 
-    function createPolicy(bytes calldata _data) external payable returns (bool) {
+    function createPolicy(bytes calldata _data) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareCreatePolicy(
             _erc2771Sender(),
             _data
@@ -35,7 +35,10 @@ contract AdditionalPermissionHub is PermissionStorage {
         return _prepareCreatePolicy(sender, _data);
     }
 
-    function createPolicy(bytes calldata _data, ExtraData memory _extraData) external payable returns (bool) {
+    function createPolicy(
+        bytes calldata _data,
+        ExtraData memory _extraData
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareCreatePolicy(
             _erc2771Sender(),
             _data,
@@ -53,7 +56,7 @@ contract AdditionalPermissionHub is PermissionStorage {
         return _prepareCreatePolicy(sender, _data, _extraData);
     }
 
-    function deletePolicy(uint256 id) external payable returns (bool) {
+    function deletePolicy(uint256 id) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeletePolicy(
             _erc2771Sender(),
             id
@@ -69,7 +72,10 @@ contract AdditionalPermissionHub is PermissionStorage {
      * @param id The policy id
      * @param _extraData The extra data for crosschain callback
      */
-    function deletePolicy(uint256 id, ExtraData memory _extraData) external payable returns (bool) {
+    function deletePolicy(
+        uint256 id,
+        ExtraData memory _extraData
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeletePolicy(
             _erc2771Sender(),
             id,

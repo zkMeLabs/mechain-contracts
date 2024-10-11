@@ -81,7 +81,7 @@ contract AdditionalGroupHub is GroupStorage, GnfdAccessControl {
      * @param owner The group's owner
      * @param name The group's name
      */
-    function createGroup(address owner, string memory name) external payable returns (bool) {
+    function createGroup(address owner, string memory name) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareCreateGroup(
             _erc2771Sender(),
             owner,
@@ -115,7 +115,7 @@ contract AdditionalGroupHub is GroupStorage, GnfdAccessControl {
         string memory name,
         uint256 callbackGasLimit,
         ExtraData memory extraData
-    ) external payable returns (bool) {
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareCreateGroup(
             _erc2771Sender(),
             owner,
@@ -143,7 +143,7 @@ contract AdditionalGroupHub is GroupStorage, GnfdAccessControl {
      *
      * @param id The group's id
      */
-    function deleteGroup(uint256 id) external payable returns (bool) {
+    function deleteGroup(uint256 id) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeleteGroup(
             _erc2771Sender(),
             id
@@ -172,7 +172,7 @@ contract AdditionalGroupHub is GroupStorage, GnfdAccessControl {
         uint256 id,
         uint256 callbackGasLimit,
         ExtraData memory extraData
-    ) external payable returns (bool) {
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeleteGroup(
             _erc2771Sender(),
             id,
@@ -197,7 +197,7 @@ contract AdditionalGroupHub is GroupStorage, GnfdAccessControl {
      *
      * @param synPkg Package containing information of the group to be updated
      */
-    function updateGroup(UpdateGroupSynPackage memory synPkg) external payable returns (bool) {
+    function updateGroup(UpdateGroupSynPackage memory synPkg) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareUpdateGroup(
             _erc2771Sender(),
             synPkg
@@ -227,7 +227,7 @@ contract AdditionalGroupHub is GroupStorage, GnfdAccessControl {
         UpdateGroupSynPackage memory synPkg,
         uint256 callbackGasLimit,
         ExtraData memory extraData
-    ) external payable returns (bool) {
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareUpdateGroup(
             _erc2771Sender(),
             synPkg,

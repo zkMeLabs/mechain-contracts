@@ -71,7 +71,7 @@ contract AdditionalBucketHub is BucketStorage, GnfdAccessControl {
      *
      * @param synPkg Package containing information of the bucket to be created
      */
-    function createBucket(CreateBucketSynPackage memory synPkg) external payable returns (bool) {
+    function createBucket(CreateBucketSynPackage memory synPkg) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareCreateBucket(
             _erc2771Sender(),
             synPkg
@@ -100,7 +100,7 @@ contract AdditionalBucketHub is BucketStorage, GnfdAccessControl {
         CreateBucketSynPackage memory synPkg,
         uint256 callbackGasLimit,
         ExtraData memory extraData
-    ) external payable returns (bool) {
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareCreateBucket(
             _erc2771Sender(),
             synPkg,
@@ -126,7 +126,7 @@ contract AdditionalBucketHub is BucketStorage, GnfdAccessControl {
      *
      * @param id The bucket's id
      */
-    function deleteBucket(uint256 id) external payable returns (bool) {
+    function deleteBucket(uint256 id) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeleteBucket(
             _erc2771Sender(),
             id
@@ -156,7 +156,7 @@ contract AdditionalBucketHub is BucketStorage, GnfdAccessControl {
         uint256 id,
         uint256 callbackGasLimit,
         ExtraData memory extraData
-    ) external payable returns (bool) {
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeleteBucket(
             _erc2771Sender(),
             id,

@@ -121,11 +121,11 @@ contract ObjectHub is ObjectStorage, GnfdAccessControl, CmnHub, IObjectHub {
         delegateAdditional();
     }
 
-    function deleteObject(uint256) external payable returns (bool) {
+    function deleteObject(uint256) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function deleteObject(uint256, uint256, ExtraData memory) external payable returns (bool) {
+    function deleteObject(uint256, uint256, ExtraData memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 }

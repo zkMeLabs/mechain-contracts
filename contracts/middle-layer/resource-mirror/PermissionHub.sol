@@ -77,19 +77,19 @@ contract PermissionHub is PermissionStorage, CmnHub, IPermissionHub {
     }
 
     /*----------------- external function -----------------*/
-    function createPolicy(bytes calldata) external payable returns (bool) {
+    function createPolicy(bytes calldata) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function createPolicy(bytes calldata, ExtraData memory) external payable returns (bool) {
+    function createPolicy(bytes calldata, ExtraData memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function deletePolicy(uint256) external payable returns (bool) {
+    function deletePolicy(uint256) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function deletePolicy(uint256, ExtraData memory) external payable returns (bool) {
+    function deletePolicy(uint256, ExtraData memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 

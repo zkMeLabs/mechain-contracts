@@ -114,27 +114,36 @@ contract GroupHub is GroupStorage, GnfdAccessControl, CmnHub, IGroupHub {
         delegateAdditional();
     }
 
-    function createGroup(address, string memory) external payable returns (bool) {
+    function createGroup(address, string memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function createGroup(address, string memory, uint256, ExtraData memory) external payable returns (bool) {
+    function createGroup(
+        address,
+        string memory,
+        uint256,
+        ExtraData memory
+    ) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function deleteGroup(uint256) external payable returns (bool) {
+    function deleteGroup(uint256) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function deleteGroup(uint256, uint256, ExtraData memory) external payable returns (bool) {
+    function deleteGroup(uint256, uint256, ExtraData memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function updateGroup(UpdateGroupSynPackage memory) external payable returns (bool) {
+    function updateGroup(UpdateGroupSynPackage memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function updateGroup(UpdateGroupSynPackage memory, uint256, ExtraData memory) external payable returns (bool) {
+    function updateGroup(
+        UpdateGroupSynPackage memory,
+        uint256,
+        ExtraData memory
+    ) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 

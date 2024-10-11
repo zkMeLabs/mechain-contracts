@@ -107,19 +107,23 @@ contract BucketHub is BucketStorage, GnfdAccessControl, CmnHub, IBucketHub {
         delegateAdditional();
     }
 
-    function createBucket(CreateBucketSynPackage memory) external payable returns (bool) {
+    function createBucket(CreateBucketSynPackage memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function createBucket(CreateBucketSynPackage memory, uint256, ExtraData memory) external payable returns (bool) {
+    function createBucket(
+        CreateBucketSynPackage memory,
+        uint256,
+        ExtraData memory
+    ) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function deleteBucket(uint256) external payable returns (bool) {
+    function deleteBucket(uint256) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 
-    function deleteBucket(uint256, uint256, ExtraData memory) external payable returns (bool) {
+    function deleteBucket(uint256, uint256, ExtraData memory) external payable onlyEmergencyOperator returns (bool) {
         delegateAdditional();
     }
 

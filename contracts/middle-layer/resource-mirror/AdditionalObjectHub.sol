@@ -63,7 +63,7 @@ contract AdditionalObjectHub is ObjectStorage, GnfdAccessControl {
      *
      * @param id The object id
      */
-    function deleteObject(uint256 id) external payable returns (bool) {
+    function deleteObject(uint256 id) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeleteObject(
             _erc2771Sender(),
             id
@@ -92,7 +92,7 @@ contract AdditionalObjectHub is ObjectStorage, GnfdAccessControl {
         uint256 id,
         uint256 callbackGasLimit,
         ExtraData memory extraData
-    ) external payable returns (bool) {
+    ) external payable onlyEmergencyOperator returns (bool) {
         (uint8 _channelId, bytes memory _msgBytes, uint256 _relayFee, uint256 _ackRelayFee, ) = _prepareDeleteObject(
             _erc2771Sender(),
             id,
