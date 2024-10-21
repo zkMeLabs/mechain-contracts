@@ -5,10 +5,10 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "../Config.sol";
 import "../interface/ICrossChain.sol";
-import "../interface/IGreenfieldExecutor.sol";
+import "../interface/IMechainExecutor.sol";
 import "../interface/IMiddleLayer.sol";
 
-contract GreenfieldExecutor is Config, Initializable, IMiddleLayer, IGreenfieldExecutor {
+contract MechainExecutor is Config, Initializable, IMiddleLayer, IMechainExecutor {
     uint256 public constant MAX_MESSAGE_COUNT = 10;
     uint256 public constant MAX_MESSAGE_BYTES = 1024;
 
@@ -21,7 +21,7 @@ contract GreenfieldExecutor is Config, Initializable, IMiddleLayer, IGreenfieldE
     /**
      * @notice Send messages to GNFD
      *
-     * @param _msgTypes The greenfield message types.
+     * @param _msgTypes The mechain message types.
      * Supported message types and its corresponding number
      * 1: CreatePaymentAccount
      * 2: Deposit
@@ -36,8 +36,8 @@ contract GreenfieldExecutor is Config, Initializable, IMiddleLayer, IGreenfieldE
      * 11: UpdateObjectInfo
      * 12: UpdateGroupExtra
      * 13: SetTag
-     * @param _msgBytes The greenfield message bytes encoded by protobuf.
-     * Please refer to https://docs.bnbchain.org/greenfield-docs/docs/guide/core-concept/cross-chain/executor/ for more details.
+     * @param _msgBytes The mechain message bytes encoded by protobuf.
+     * Please refer to https://zk.me/mechain-docs/docs/guide/core-concept/cross-chain/executor/ for more details.
      */
     function execute(uint8[] calldata _msgTypes, bytes[] calldata _msgBytes) external payable override returns (bool) {
         uint256 _length = _msgTypes.length;
@@ -70,7 +70,7 @@ contract GreenfieldExecutor is Config, Initializable, IMiddleLayer, IGreenfieldE
         override
         returns (uint256 version, string memory name, string memory description)
     {
-        return (1_000_003, "GreenfieldExecutor", "support ERC2771Forwarder");
+        return (1_000_003, "MechainExecutor", "support ERC2771Forwarder");
     }
 
     function handleSynPackage(uint8, bytes calldata) external pure returns (bytes memory responsePayload) {

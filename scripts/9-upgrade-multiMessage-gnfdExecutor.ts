@@ -28,7 +28,7 @@ const main = async () => {
 
     contracts.MultiMessageDeployer = multiMessageDeployer.address;
     contracts.MultiMessage = await multiMessageDeployer.proxyMultiMessage();
-    contracts.GreenfieldExecutor = await multiMessageDeployer.proxyGreenfieldExecutor();
+    contracts.MechainExecutor = await multiMessageDeployer.proxyMechainExecutor();
 
     await setConstantsToConfig({
         proxyAdmin: contracts.ProxyAdmin,
@@ -43,7 +43,7 @@ const main = async () => {
         proxyPermissionHub: contracts.PermissionHub,
 
         proxyMultiMessage: contracts.MultiMessage,
-        proxyGreenfieldExecutor: contracts.GreenfieldExecutor,
+        proxyMechainExecutor: contracts.MechainExecutor,
 
         emergencyOperator: contracts.EmergencyOperator,
         emergencyUpgradeOperator: contracts.EmergencyUpgradeOperator,
@@ -51,10 +51,10 @@ const main = async () => {
 
     const implMultiMessage = await deployContract('MultiMessage');
     log('implMultiMessage deployed', implMultiMessage.address);
-    const implGreenfieldExecutor = await deployContract('GreenfieldExecutor');
-    log('implGreenfieldExecutor deployed', implGreenfieldExecutor.address);
+    const implMechainExecutor = await deployContract('MechainExecutor');
+    log('implMechainExecutor deployed', implMechainExecutor.address);
     await waitTx(
-        multiMessageDeployer.deploy(implMultiMessage.address, implGreenfieldExecutor.address, {
+        multiMessageDeployer.deploy(implMultiMessage.address, implMechainExecutor.address, {
             gasLimit: 5000000,
         })
     );
@@ -95,7 +95,7 @@ const main = async () => {
             constructorArguments: [contracts.Deployer, '0x' + commitId],
         });
         await run('verify:verify', { address: implMultiMessage.address });
-        await run('verify:verify', { address: implGreenfieldExecutor.address });
+        await run('verify:verify', { address: implMechainExecutor.address });
         await run('verify:verify', { address: implCrossChain.address });
 
         await run('verify:verify', { address: implGroupHub.address });

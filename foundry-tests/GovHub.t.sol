@@ -12,7 +12,7 @@ import "../contracts/test/GnfdLightClientTest.sol";
 
 contract GovHubTest is Test, GovHub {
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    event GreenfieldCall(
+    event MechainCall(
         uint32 indexed status,
         uint8 channelId,
         uint8 indexed operationType,
@@ -91,5 +91,4 @@ contract GovHubTest is Test, GovHub {
     function _encodeGovSynPackage(ParamChangePackage memory proposal) internal pure returns (bytes memory) {
         return abi.encode(proposal);
     }
-
 }

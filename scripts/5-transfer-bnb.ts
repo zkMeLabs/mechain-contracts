@@ -31,7 +31,7 @@ const main = async () => {
             value: unit.mul(5),
         });
         await tx.wait(1);
-        log('transfer to ', tester, '5 BNB');
+        log('transfer to ', tester, '5 ZKME');
     }
     /*
     const validators = contracts.initConsensusState.validators;

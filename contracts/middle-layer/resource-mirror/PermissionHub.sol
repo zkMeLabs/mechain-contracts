@@ -138,7 +138,7 @@ contract PermissionHub is PermissionStorage, CmnHub, IPermissionHub {
                 bool failed;
                 uint256 gasBefore = gasleft();
                 try
-                    IApplication(extraData.appAddress).greenfieldCall{ gas: callbackGasLimit }(
+                    IApplication(extraData.appAddress).mechainCall{ gas: callbackGasLimit }(
                         STATUS_UNEXPECTED,
                         channelId,
                         TYPE_CREATE,

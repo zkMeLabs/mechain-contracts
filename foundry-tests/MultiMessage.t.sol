@@ -19,7 +19,7 @@ contract MultiMessageTest is Test, MultiMessage {
     }
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    event GreenfieldCall(
+    event MechainCall(
         uint32 indexed status,
         uint8 channelId,
         uint8 indexed operationType,
@@ -60,8 +60,18 @@ contract MultiMessageTest is Test, MultiMessage {
         _targets[0] = GROUP_HUB;
         _targets[1] = GROUP_HUB;
 
-        _data[0] = abi.encodeWithSignature("prepareCreateGroup(address,address,string)", address(this), address(this), "test1");
-        _data[1] = abi.encodeWithSignature("prepareCreateGroup(address,address,string)", address(this), address(this), "test2");
+        _data[0] = abi.encodeWithSignature(
+            "prepareCreateGroup(address,address,string)",
+            address(this),
+            address(this),
+            "test1"
+        );
+        _data[1] = abi.encodeWithSignature(
+            "prepareCreateGroup(address,address,string)",
+            address(this),
+            address(this),
+            "test2"
+        );
 
         _values[0] = 0.1 ether;
         _values[1] = 0.1 ether;
@@ -70,7 +80,8 @@ contract MultiMessageTest is Test, MultiMessage {
     }
 
     function testDecode() public view {
-        bytes memory _data2 = hex'000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000e35fa931a00000000000000000000000000000000000000000000000000001626218b45860000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149600000000000000000000000000000000000000000000000000000000000000e10200000000000000000000000000000000000000000000000000000000000000200000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000057465737431000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000';
+        bytes
+            memory _data2 = hex"000000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000a00000000000000000000000000000000000000000000000000000e35fa931a00000000000000000000000000000000000000000000000000001626218b45860000000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e149600000000000000000000000000000000000000000000000000000000000000e10200000000000000000000000000000000000000000000000000000000000000200000000000000000000000007fa9385be102ac3eac297483dd6233d62b3e1496000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000057465737431000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
         (uint8 channelId, bytes memory msgBytes, uint256 relayFee, uint256 ackRelayFee, address sender) = abi.decode(
             _data2,
             (uint8, bytes, uint256, uint256, address)
@@ -84,14 +95,14 @@ contract MultiMessageTest is Test, MultiMessage {
     }
 
     /*----------------- dApp function -----------------*/
-    function greenfieldCall(
+    function mechainCall(
         uint32 status,
         uint8 channelId,
         uint8 operationType,
         uint256 resourceId,
         bytes memory callbackData
     ) external {
-        emit GreenfieldCall(status, channelId, operationType, resourceId, callbackData);
+        emit MechainCall(status, channelId, operationType, resourceId, callbackData);
     }
 
     /*----------------- Internal function -----------------*/
@@ -116,7 +127,8 @@ contract MultiMessageTest is Test, MultiMessage {
             failureHandleStrategy: failStrategy,
             callbackData: ""
         });
-        return abi.encodePacked(TYPE_CREATE, abi.encode(CmnCreateAckPackage(status, id, creator, abi.encode(extraData))));
+        return
+            abi.encodePacked(TYPE_CREATE, abi.encode(CmnCreateAckPackage(status, id, creator, abi.encode(extraData))));
     }
 
     function _encodeDeleteAckPackage(uint32 status, uint256 id) internal pure returns (bytes memory) {

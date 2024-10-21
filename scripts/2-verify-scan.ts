@@ -35,7 +35,7 @@ const main = async () => {
     const proxyGroupHub = await deployer.proxyGroupHub();
     const proxyPermissionHub = await deployer.proxyPermissionHub();
     const proxyMultiMessage = await deployer.proxyMultiMessage();
-    const proxyGreenfieldExecutor = await deployer.proxyGreenfieldExecutor();
+    const proxyMechainExecutor = await deployer.proxyMechainExecutor();
 
     // Set all generated contracts to Config contracts
     await setConstantsToConfig({
@@ -50,7 +50,7 @@ const main = async () => {
         proxyGroupHub,
         proxyPermissionHub,
         proxyMultiMessage,
-        proxyGreenfieldExecutor,
+        proxyMechainExecutor,
         emergencyOperator: contracts.EmergencyOperator,
         emergencyUpgradeOperator: contracts.EmergencyUpgradeOperator,
     });
@@ -65,7 +65,7 @@ const main = async () => {
     const implGroupHub = await deployer.implGroupHub();
     const implPermissionHub = await deployer.implPermissionHub();
     const implMultiMessage = await deployer.implMultiMessage();
-    const implGnfdExecutor = await deployer.implGreenfieldExecutor();
+    const implGnfdExecutor = await deployer.implMechainExecutor();
 
     const addBucketHub = await deployer.addBucketHub();
     const addObjectHub = await deployer.addObjectHub();
@@ -162,7 +162,7 @@ const main = async () => {
             contract: 'contracts/GnfdProxy.sol:GnfdProxy',
         });
         await run('verify:verify', {
-            address: proxyGreenfieldExecutor,
+            address: proxyMechainExecutor,
             constructorArguments: [implGnfdExecutor, proxyAdmin, '0x'],
             contract: 'contracts/GnfdProxy.sol:GnfdProxy',
         });

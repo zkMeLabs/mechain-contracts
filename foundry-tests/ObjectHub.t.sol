@@ -17,7 +17,7 @@ contract ObjectHubTest is Test, ObjectHub {
     }
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    event GreenfieldCall(
+    event MechainCall(
         uint32 indexed status,
         uint8 channelId,
         uint8 indexed operationType,
@@ -159,7 +159,7 @@ contract ObjectHubTest is Test, ObjectHub {
         uint64 sequence = crossChain.channelReceiveSequenceMap(OBJECT_CHANNEL_ID);
 
         vm.expectEmit(true, true, true, false, address(this));
-        emit GreenfieldCall(STATUS_SUCCESS, OBJECT_CHANNEL_ID, TYPE_DELETE, tokenId, "");
+        emit MechainCall(STATUS_SUCCESS, OBJECT_CHANNEL_ID, TYPE_DELETE, tokenId, "");
         vm.prank(CROSS_CHAIN);
         objectHub.handleAckPackage(OBJECT_CHANNEL_ID, sequence, msgBytes, 5000);
     }
@@ -183,7 +183,7 @@ contract ObjectHubTest is Test, ObjectHub {
         uint64 sequence = crossChain.channelReceiveSequenceMap(OBJECT_CHANNEL_ID);
 
         vm.expectEmit(true, true, true, false, address(this));
-        emit GreenfieldCall(STATUS_UNEXPECTED, OBJECT_CHANNEL_ID, TYPE_DELETE, 0, "");
+        emit MechainCall(STATUS_UNEXPECTED, OBJECT_CHANNEL_ID, TYPE_DELETE, 0, "");
         vm.prank(CROSS_CHAIN);
         objectHub.handleFailAckPackage(OBJECT_CHANNEL_ID, sequence, msgBytes, 5000);
     }
@@ -232,14 +232,14 @@ contract ObjectHubTest is Test, ObjectHub {
     }
 
     /*----------------- dApp function -----------------*/
-    function greenfieldCall(
+    function mechainCall(
         uint32 status,
         uint8 channelId,
         uint8 operationType,
         uint256 resourceId,
         bytes memory callbackData
     ) external {
-        emit GreenfieldCall(status, channelId, operationType, resourceId, callbackData);
+        emit MechainCall(status, channelId, operationType, resourceId, callbackData);
     }
 
     /*----------------- Internal function -----------------*/

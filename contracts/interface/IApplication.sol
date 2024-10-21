@@ -23,7 +23,7 @@ interface IApplication {
      * Sometimes, this param is not valid, such as when the status is STATUS_UNEXPECTED.
      * In this case, the resourceId is 0.
      */
-    function greenfieldCall(
+    function mechainCall(
         uint32 status,
         uint8 channelId,
         uint8 operationType,

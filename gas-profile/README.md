@@ -7,7 +7,7 @@ cp .env.example .env
 # modify the env variable `DeployerPrivateKey` to your own private key
 # modify the env variable `BSC_TESTNET_RPC` to an archive TESTNET RPC endpoint
 
-# make sure the address corresponding to the private key has enough tBNB in the BSC Testnet
+# make sure the address corresponding to the private key has enough zkme in the BSC Testnet
 ```
 
 Install foundry:

@@ -64,7 +64,7 @@ abstract contract CmnHub is CmnStorage, Initializable, ICmnHub, IMiddleLayer {
         bytes32 pkgHash = retryQueue[appAddress].popFront();
         RetryPackage memory pkg = packageMap[pkgHash];
         delete packageMap[pkgHash];
-        IApplication(pkg.appAddress).greenfieldCall(
+        IApplication(pkg.appAddress).mechainCall(
             pkg.status,
             channelId,
             pkg.operationType,
@@ -123,7 +123,7 @@ abstract contract CmnHub is CmnStorage, Initializable, ICmnHub, IMiddleLayer {
                 bool failed;
                 uint256 gasBefore = gasleft();
                 try
-                    IApplication(extraData.appAddress).greenfieldCall{ gas: callbackGasLimit }(
+                    IApplication(extraData.appAddress).mechainCall{ gas: callbackGasLimit }(
                         ackPkg.status,
                         channelId,
                         TYPE_CREATE,
@@ -189,7 +189,7 @@ abstract contract CmnHub is CmnStorage, Initializable, ICmnHub, IMiddleLayer {
                 bool failed;
                 uint256 gasBefore = gasleft();
                 try
-                    IApplication(extraData.appAddress).greenfieldCall{ gas: callbackGasLimit }(
+                    IApplication(extraData.appAddress).mechainCall{ gas: callbackGasLimit }(
                         ackPkg.status,
                         channelId,
                         TYPE_DELETE,
@@ -269,7 +269,7 @@ abstract contract CmnHub is CmnStorage, Initializable, ICmnHub, IMiddleLayer {
                 bool failed;
                 uint256 gasBefore = gasleft();
                 try
-                    IApplication(extraData.appAddress).greenfieldCall{ gas: callbackGasLimit }(
+                    IApplication(extraData.appAddress).mechainCall{ gas: callbackGasLimit }(
                         STATUS_UNEXPECTED,
                         channelId,
                         TYPE_DELETE,

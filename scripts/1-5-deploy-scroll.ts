@@ -92,7 +92,7 @@ const main = async () => {
     const proxyGroupHub = await deployer.proxyGroupHub();
     const proxyPermissionHub = await deployer.proxyPermissionHub();
     const proxyMultiMessage = await deployer.proxyMultiMessage();
-    const proxyGreenfieldExecutor = await deployer.proxyGreenfieldExecutor();
+    const proxyMechainExecutor = await deployer.proxyMechainExecutor();
     const proxyZkmeSBTHub = await deployer.proxyZkmeSBTHub();
 
     // Set all generated contracts to Config contracts
@@ -108,7 +108,7 @@ const main = async () => {
         proxyGroupHub,
         proxyPermissionHub,
         proxyMultiMessage,
-        proxyGreenfieldExecutor,
+        proxyMechainExecutor,
         proxyZkmeSBTHub,
         emergencyOperator,
         emergencyUpgradeOperator,
@@ -144,8 +144,8 @@ const main = async () => {
     const implMultiMessage = await deployContract('MultiMessage');
     log('deploy implMultiMessage success', implMultiMessage.address);
 
-    const implGreenfieldExecutor = await deployContract('GreenfieldExecutor');
-    log('deploy implGreenfieldExecutor success', implGreenfieldExecutor.address);
+    const implMechainExecutor = await deployContract('MechainExecutor');
+    log('deploy implMechainExecutor success', implMechainExecutor.address);
 
     const implZkmeSBTHub = await deployContract('ZkmeSBTHub');
     log('deploy implZkmeSBTHub success', implZkmeSBTHub.address);
@@ -222,7 +222,7 @@ const main = async () => {
         addPermissionHub.address,
         permissionToken.address,
         implMultiMessage.address,
-        implGreenfieldExecutor.address,
+        implMechainExecutor.address,
         implZkmeSBTHub.address,
     ];
 
@@ -251,7 +251,7 @@ const main = async () => {
         GroupHub: proxyGroupHub,
         PermissionHub: proxyPermissionHub,
         MultiMessage: proxyMultiMessage,
-        GreenfieldExecutor: proxyGreenfieldExecutor,
+        MechainExecutor: proxyMechainExecutor,
         ZkmeSBTHub: proxyZkmeSBTHub,
 
         AdditionalBucketHub: addBucketHub.address,

@@ -61,7 +61,7 @@ ethereum-compatible chain directly, without the need for intermediaries.
 - mirror group from Mechain to ethereum-compatible chain
 
 Users can also approve smart contracts to operate the aforementioned resources instead, check the
-[design](https://Mechain.bnbchain.org/docs/guide/dapp/permisson-control.html) for more details.
+[design](https://zk.me/docs/guide/dapp/permisson-control.html) for more details.
 
 ## Requirement
 
@@ -72,7 +72,7 @@ set environment
 cp .env.example .env
 # modify the env variable `DeployerPrivateKey` to your own private key
 
-# make sure the address corresponding to the private key has enough tBNB in the ethereum-compatible chain Testnet
+# make sure the address corresponding to the private key has enough azkme in the ethereum-compatible chain Testnet
 ```
 
 Install foundry:

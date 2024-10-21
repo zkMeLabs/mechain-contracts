@@ -18,7 +18,7 @@ let emergencyOperator = ''; // suspend / reopen / cancelTransfer
 let emergencyUpgradeOperator = ''; // update params / upgrade contracts
 // TODO modify consensusStateBytes
 const initConsensusState: any = {
-    chainID: 'greenfield_1017-1',
+    chainID: 'mechain_5151-1',
     height: 1806202,
     nextValidatorSetHash: '0x1934cd5af1b1a6ec756032f07411f2452ccaea94d1bbeb5001484ca70d16e1d2',
     validators: [
@@ -377,7 +377,7 @@ const main = async () => {
         });
         await tx.wait(1);
     }
-    log('transfer bnb to validators');
+    log('transfer azkme to validators');
 };
 
 const deployContract = async (factoryPath: string, ...args: any) => {

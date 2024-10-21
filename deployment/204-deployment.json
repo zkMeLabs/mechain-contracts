@@ -21,7 +21,7 @@
   "GroupERC721Token": "0x488e054cc55Ba7a97e32B73122630364d4ffc050",
   "MemberERC1155Token": "0x9841F55651acd38019B8B895083F7B5f9933Ca44",
   "initConsensusState": {
-    "chainID": "greenfield_1017-1",
+    "chainID": "mechain_5151-1",
     "height": 1806202,
     "nextValidatorSetHash": "0x1934cd5af1b1a6ec756032f07411f2452ccaea94d1bbeb5001484ca70d16e1d2",
     "validators": [
@@ -113,6 +113,6 @@
   "AdditionalPermissionHub": "0xbA7e01B8a3989dA5908a6171aB47976E8A1AC683",
   "PermissionToken": "0xb8AE22AA0B0F125B74D385261b26282a44224aCc",
   "MultiMessage": "0x1aA380808eCef9BA5550fadaa97f2fD682B7f03A",
-  "GreenfieldExecutor": "0xdFc5DC31bfbf992C19C171db273A028736322Ec4",
+  "MechainExecutor": "0xdFc5DC31bfbf992C19C171db273A028736322Ec4",
   "TrustedForwarder": "0xdb7d0bd38D223048B1cFf39700E4C5238e346f7F"
 }

@@ -243,7 +243,7 @@ contract GroupHub is GroupStorage, GnfdAccessControl, CmnHub, IGroupHub {
                 bool failed;
                 uint256 gasBefore = gasleft();
                 try
-                    IApplication(extraData.appAddress).greenfieldCall{ gas: callbackGasLimit }(
+                    IApplication(extraData.appAddress).mechainCall{ gas: callbackGasLimit }(
                         ackPkg.status,
                         channelId,
                         TYPE_UPDATE,
@@ -315,7 +315,7 @@ contract GroupHub is GroupStorage, GnfdAccessControl, CmnHub, IGroupHub {
                 bool failed;
                 uint256 gasBefore = gasleft();
                 try
-                    IApplication(extraData.appAddress).greenfieldCall{ gas: callbackGasLimit }(
+                    IApplication(extraData.appAddress).mechainCall{ gas: callbackGasLimit }(
                         STATUS_UNEXPECTED,
                         channelId,
                         TYPE_CREATE,
@@ -368,7 +368,7 @@ contract GroupHub is GroupStorage, GnfdAccessControl, CmnHub, IGroupHub {
                 bool failed;
                 uint256 gasBefore = gasleft();
                 try
-                    IApplication(extraData.appAddress).greenfieldCall{ gas: callbackGasLimit }(
+                    IApplication(extraData.appAddress).mechainCall{ gas: callbackGasLimit }(
                         STATUS_UNEXPECTED,
                         channelId,
                         TYPE_UPDATE,

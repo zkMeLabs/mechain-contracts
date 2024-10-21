@@ -23,7 +23,7 @@ contract TrustedForwarderTest is Test, MultiMessage {
     }
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    event GreenfieldCall(
+    event MechainCall(
         uint32 indexed status,
         uint8 channelId,
         uint8 indexed operationType,
@@ -57,7 +57,6 @@ contract TrustedForwarderTest is Test, MultiMessage {
         multiMessage = MultiMessage(MULTI_MESSAGE);
         permissionToken = ERC721NonTransferable(multiMessage.ERC721Token());
         forwarder = ITrustedForwarder(ERC2771_FORWARDER);
-
 
         (uint256 relayFee, uint256 minAckRelayFee) = crossChain.getRelayFees();
         totalRelayFee = relayFee + minAckRelayFee;
@@ -111,7 +110,7 @@ contract TrustedForwarderTest is Test, MultiMessage {
             target: address(permissionHub),
             allowFailure: false,
             value: totalRelayFee,
-            callData: abi.encodeWithSignature("createPolicy(bytes)", hex'1234')
+            callData: abi.encodeWithSignature("createPolicy(bytes)", hex"1234")
         });
         totalValue += calls[2].value;
 
@@ -130,25 +129,25 @@ contract TrustedForwarderTest is Test, MultiMessage {
         emit TransferOutSuccess(expectSender, transferOutAmt, 0, 0);
 
         vm.expectEmit(true, true, false, false, PERMISSION_HUB);
-        emit CreateSubmitted(expectSender, expectSender, string(hex'1234'));
+        emit CreateSubmitted(expectSender, expectSender, string(hex"1234"));
 
         ITrustedForwarder.Result[] memory res = forwarder.aggregate3Value{ value: totalValue }(calls);
         assertEq(res[0].success && res[1].success && res[2].success && !res[3].success, true, "invalid results");
 
-        bytes memory revertSelector = hex'08c379a0';
+        bytes memory revertSelector = hex"08c379a0";
         bytes memory revertData = abi.encode(bytes("no permission to create"));
         assertEq(res[3].returnData, abi.encodePacked(revertSelector, revertData), "invalid createGroup revert data");
     }
 
     /*----------------- dApp function -----------------*/
-    function greenfieldCall(
+    function mechainCall(
         uint32 status,
         uint8 channelId,
         uint8 operationType,
         uint256 resourceId,
         bytes memory callbackData
     ) external {
-        emit GreenfieldCall(status, channelId, operationType, resourceId, callbackData);
+        emit MechainCall(status, channelId, operationType, resourceId, callbackData);
     }
 
     /*----------------- Internal function -----------------*/
@@ -173,7 +172,8 @@ contract TrustedForwarderTest is Test, MultiMessage {
             failureHandleStrategy: failStrategy,
             callbackData: ""
         });
-        return abi.encodePacked(TYPE_CREATE, abi.encode(CmnCreateAckPackage(status, id, creator, abi.encode(extraData))));
+        return
+            abi.encodePacked(TYPE_CREATE, abi.encode(CmnCreateAckPackage(status, id, creator, abi.encode(extraData))));
     }
 
     function _encodeDeleteAckPackage(uint32 status, uint256 id) internal pure returns (bytes memory) {

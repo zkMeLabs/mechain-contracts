@@ -30,7 +30,7 @@ const main = async () => {
         proxyPermissionHub: contracts.PermissionHub,
 
         proxyMultiMessage: contracts.MultiMessage,
-        proxyGreenfieldExecutor: contracts.GreenfieldExecutor,
+        proxyMechainExecutor: contracts.MechainExecutor,
 
         emergencyOperator: contracts.EmergencyOperator,
         emergencyUpgradeOperator: contracts.EmergencyUpgradeOperator,
@@ -40,8 +40,8 @@ const main = async () => {
     log('new implTokenHub deployed', implTokenHub.address);
     const implMultiMessage = await deployContract('MultiMessage');
     log('new implMultiMessage deployed', implMultiMessage.address);
-    const implGreenfieldExecutor = await deployContract('GreenfieldExecutor');
-    log('new implGreenfieldExecutor deployed', implGreenfieldExecutor.address);
+    const implMechainExecutor = await deployContract('MechainExecutor');
+    log('new implMechainExecutor deployed', implMechainExecutor.address);
 
 
     const addGroupHub = await deployContract('AdditionalGroupHub');
@@ -59,7 +59,7 @@ const main = async () => {
     try {
         await run('verify:verify', { address: implTokenHub.address });
         await run('verify:verify', { address: implMultiMessage.address });
-        await run('verify:verify', { address: implGreenfieldExecutor.address });
+        await run('verify:verify', { address: implMechainExecutor.address });
 
         await run('verify:verify', { address: addGroupHub.address });
         await run('verify:verify', { address: addBucketHub.address });

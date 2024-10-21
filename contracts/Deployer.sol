@@ -18,7 +18,7 @@ import "./middle-layer/resource-mirror/GroupHub.sol";
 import "./middle-layer/resource-mirror/ZkmeSBTHub.sol";
 import "./middle-layer/resource-mirror/PermissionHub.sol";
 import "./middle-layer/resource-mirror/MultiMessage.sol";
-import "./middle-layer/GreenfieldExecutor.sol";
+import "./middle-layer/MechainExecutor.sol";
 
 contract Deployer {
     uint32 public immutable gnfdChainId;
@@ -34,7 +34,7 @@ contract Deployer {
     address public immutable proxyGroupHub;
     address public immutable proxyPermissionHub;
     address public immutable proxyMultiMessage;
-    address public immutable proxyGreenfieldExecutor;
+    address public immutable proxyMechainExecutor;
     address public immutable proxyZkmeSBTHub;
 
     bytes public initConsensusStateBytes;
@@ -48,7 +48,7 @@ contract Deployer {
     address public implGroupHub;
     address public implPermissionHub;
     address public implMultiMessage;
-    address public implGreenfieldExecutor;
+    address public implMechainExecutor;
     address public implZkmeSBTHub;
 
     address public addBucketHub;
@@ -95,7 +95,7 @@ contract Deployer {
         // @dev
         proxyPermissionHub = calcCreateAddress(address(this), uint8(10));
         proxyMultiMessage = calcCreateAddress(address(this), uint8(11));
-        proxyGreenfieldExecutor = calcCreateAddress(address(this), uint8(12));
+        proxyMechainExecutor = calcCreateAddress(address(this), uint8(12));
         proxyZkmeSBTHub = calcCreateAddress(address(this), uint8(13));
 
         // 1. proxyAdmin
@@ -154,9 +154,9 @@ contract Deployer {
         address deployedProxyMultiMessage = address(new GnfdProxy(implMultiMessage, proxyAdmin, ""));
         require(deployedProxyMultiMessage == proxyMultiMessage, "invalid proxyMultiMessage address");
 
-        // 12. GreenfieldExecutor
-        address deployedProxyGreenfieldExecutor = address(new GnfdProxy(implGreenfieldExecutor, proxyAdmin, ""));
-        require(deployedProxyGreenfieldExecutor == proxyGreenfieldExecutor, "invalid proxyGreenfieldExecutor address");
+        // 12. MechainExecutor
+        address deployedProxyMechainExecutor = address(new GnfdProxy(implMechainExecutor, proxyAdmin, ""));
+        require(deployedProxyMechainExecutor == proxyMechainExecutor, "invalid proxyMechainExecutor address");
 
         // 13. ZkmeSBTHub
         address deployedProxyZkmeSBTHub = address(new GnfdProxy(implZkmeSBTHub, proxyAdmin, ""));
@@ -179,7 +179,7 @@ contract Deployer {
 
         MultiMessage(payable(proxyMultiMessage)).initialize();
         MultiMessage(payable(proxyMultiMessage)).initializeV2();
-        GreenfieldExecutor(payable(proxyGreenfieldExecutor)).initialize();
+        MechainExecutor(payable(proxyMechainExecutor)).initialize();
         ZkmeSBTHub(payable(proxyZkmeSBTHub)).initialize();
 
         require(Config(deployedProxyCrossChain).PROXY_ADMIN() == proxyAdmin, "invalid proxyAdmin address on Config");
@@ -231,7 +231,7 @@ contract Deployer {
         require(_isContract(addrs[17]), "invalid permissionToken");
 
         require(_isContract(addrs[18]), "invalid multiMessage");
-        require(_isContract(addrs[19]), "invalid greenfieldExecutor");
+        require(_isContract(addrs[19]), "invalid mechainExecutor");
         require(_isContract(addrs[20]), "invalid implZkmeSBTHub");
 
         implGovHub = addrs[0];
@@ -255,7 +255,7 @@ contract Deployer {
         permissionToken = addrs[17];
 
         implMultiMessage = addrs[18];
-        implGreenfieldExecutor = addrs[19];
+        implMechainExecutor = addrs[19];
         implZkmeSBTHub = addrs[20];
     }
 

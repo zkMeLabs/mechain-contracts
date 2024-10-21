@@ -11,7 +11,6 @@ import "contracts/tokens/ERC721NonTransferable.sol";
 import "contracts/tokens/ERC1155NonTransferable.sol";
 
 contract GroupHubTest is Test, GroupHub {
-
     struct ParamChangePackage {
         string key;
         bytes values;
@@ -20,7 +19,7 @@ contract GroupHubTest is Test, GroupHub {
 
     event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
     event TransferSingle(address indexed operator, address indexed from, address indexed to, uint256 id, uint256 value);
-    event GreenfieldCall(
+    event MechainCall(
         uint32 indexed status,
         uint8 channelId,
         uint8 indexed operationType,
@@ -226,7 +225,7 @@ contract GroupHubTest is Test, GroupHub {
         uint64 sequence = crossChain.channelReceiveSequenceMap(GROUP_CHANNEL_ID);
 
         vm.expectEmit(true, true, true, false, address(this));
-        emit GreenfieldCall(STATUS_SUCCESS, GROUP_CHANNEL_ID, TYPE_CREATE, tokenId, "");
+        emit MechainCall(STATUS_SUCCESS, GROUP_CHANNEL_ID, TYPE_CREATE, tokenId, "");
         vm.prank(CROSS_CHAIN);
         groupHub.handleAckPackage(GROUP_CHANNEL_ID, sequence, msgBytes, 5000);
     }
@@ -247,7 +246,7 @@ contract GroupHubTest is Test, GroupHub {
         uint64 sequence = crossChain.channelReceiveSequenceMap(GROUP_CHANNEL_ID);
 
         vm.expectEmit(true, true, true, false, address(this));
-        emit GreenfieldCall(STATUS_UNEXPECTED, GROUP_CHANNEL_ID, TYPE_CREATE, 0, "");
+        emit MechainCall(STATUS_UNEXPECTED, GROUP_CHANNEL_ID, TYPE_CREATE, 0, "");
         vm.prank(CROSS_CHAIN);
         groupHub.handleFailAckPackage(GROUP_CHANNEL_ID, sequence, msgBytes, 5000);
     }
@@ -297,14 +296,14 @@ contract GroupHubTest is Test, GroupHub {
     }
 
     /*----------------- dApp function -----------------*/
-    function greenfieldCall(
+    function mechainCall(
         uint32 status,
         uint8 channelId,
         uint8 operationType,
         uint256 resourceId,
         bytes memory callbackData
     ) external {
-        emit GreenfieldCall(status, channelId, operationType, resourceId, callbackData);
+        emit MechainCall(status, channelId, operationType, resourceId, callbackData);
     }
 
     /*----------------- Internal function -----------------*/
@@ -333,7 +332,8 @@ contract GroupHubTest is Test, GroupHub {
             failureHandleStrategy: failStrategy,
             callbackData: ""
         });
-        return abi.encodePacked(TYPE_CREATE, abi.encode(CmnCreateAckPackage(status, id, creator, abi.encode(extraData))));
+        return
+            abi.encodePacked(TYPE_CREATE, abi.encode(CmnCreateAckPackage(status, id, creator, abi.encode(extraData))));
     }
 
     function _encodeDeleteAckPackage(uint32 status, uint256 id) internal pure returns (bytes memory) {

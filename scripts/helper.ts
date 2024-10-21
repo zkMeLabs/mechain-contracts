@@ -30,7 +30,7 @@ export async function setConstantsToConfig(contracts: any) {
 
     const proxyPermissionHub = contracts.proxyPermissionHub;
     const proxyMultiMessage = contracts.proxyMultiMessage;
-    const proxyGreenfieldExecutor = contracts.proxyGreenfieldExecutor;
+    const proxyMechainExecutor = contracts.proxyMechainExecutor;
     const proxyZkmeSBTHub = contracts.proxyZkmeSBTHub;
     const emergencyOperator = contracts.emergencyOperator;
     const emergencyUpgradeOperator = contracts.emergencyUpgradeOperator;
@@ -51,7 +51,7 @@ export async function setConstantsToConfig(contracts: any) {
         .replace(/GROUP_HUB = .*/g, `GROUP_HUB = ${proxyGroupHub};`)
         .replace(/PERMISSION_HUB = .*/g, `PERMISSION_HUB = ${proxyPermissionHub};`)
         .replace(/MULTI_MESSAGE = .*/g, `MULTI_MESSAGE = ${proxyMultiMessage};`)
-        .replace(/GNFD_EXECUTOR = .*/g, `GNFD_EXECUTOR = ${proxyGreenfieldExecutor};`)
+        .replace(/GNFD_EXECUTOR = .*/g, `GNFD_EXECUTOR = ${proxyMechainExecutor};`)
         .replace(/ZKMESBT_HUB = .*/g, `ZKMESBT_HUB = ${proxyZkmeSBTHub};`)
         .replace(/EMERGENCY_OPERATOR = .*/g, `EMERGENCY_OPERATOR = ${emergencyOperator};`)
         .replace(

@@ -5,9 +5,9 @@ pragma solidity ^0.8.0;
 import "forge-std/Test.sol";
 
 import "contracts/CrossChain.sol";
-import "../contracts/middle-layer/GreenfieldExecutor.sol";
+import "../contracts/middle-layer/MechainExecutor.sol";
 
-contract GnfdExecutorTest is Test, GreenfieldExecutor {
+contract GnfdExecutorTest is Test, MechainExecutor {
     event CrossChainPackage(
         uint32 srcChainId,
         uint32 dstChainId,
@@ -17,14 +17,14 @@ contract GnfdExecutorTest is Test, GreenfieldExecutor {
         bytes payload
     );
 
-    GreenfieldExecutor public gnfdExecutor;
+    MechainExecutor public gnfdExecutor;
     CrossChain public crossChain;
 
     function setUp() public {
         vm.createSelectFork("local");
 
         crossChain = CrossChain(CROSS_CHAIN);
-        gnfdExecutor = GreenfieldExecutor(GNFD_EXECUTOR);
+        gnfdExecutor = MechainExecutor(GNFD_EXECUTOR);
 
         vm.label(CROSS_CHAIN, "crossChain");
         vm.label(GNFD_EXECUTOR, "gnfdExecutor");

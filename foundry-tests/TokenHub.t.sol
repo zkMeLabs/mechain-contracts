@@ -123,7 +123,7 @@ contract TokenHubTest is Test, TokenHub {
     }
 
     function test_refund_correct_case() public {
-        // CROSS_CHAIN cannot receive BNB transfers since the receive() interface is not implemented by CROSS_CHAIN
+        // CROSS_CHAIN cannot receive ZKME transfers since the receive() interface is not implemented by CROSS_CHAIN
         TransferOutAckPackage memory pkg = TransferOutAckPackage(123 ether, developer, 1);
         bytes memory msgBytes = abi.encode(pkg);
 

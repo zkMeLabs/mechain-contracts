@@ -1,4 +1,4 @@
-# cross-chain transfer 0.2 BNB (amount = 2 * 10 ^ 17) to your receiver
+# cross-chain transfer 0.2 ZKME (amount = 2 * 10 ^ 17) to your receiver
 forge script foundry-scripts/TokenHub.s.sol:TokenHubScript \
 --private-key ${your private key} \
 --sig "transferOut(address receiver, uint256 amount)" \
@@ -7,7 +7,7 @@ ${the receiver you transfer to} 200000000000000000  \
 --legacy --ffi --broadcast
 
 
-# cross-chain transfer 5 BNB (amount = 5 * 10 ^ 18) to your receiver
+# cross-chain transfer 5 ZKME (amount = 5 * 10 ^ 18) to your receiver
 forge script foundry-scripts/TokenHub.s.sol:TokenHubScript \
 --private-key ${your private key} \
 --sig "transferOut(address receiver, uint256 amount)" \

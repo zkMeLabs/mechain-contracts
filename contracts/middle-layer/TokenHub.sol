@@ -17,16 +17,16 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
     uint8 public constant TRANSFER_IN_FAILURE_NON_PAYABLE_RECIPIENT = 2;
     uint8 public constant TRANSFER_IN_FAILURE_UNKNOWN = 3;
 
-    uint256 public constant MAX_GAS_FOR_TRANSFER_BNB = 5000;
+    uint256 public constant MAX_GAS_FOR_TRANSFER_ZKME = 5000;
     uint256 public constant REWARD_UPPER_LIMIT = 1e18;
-    uint256 public constant MAX_TRANSFER_BNB_FROM_MULTI_MESSAGE = 1e17;
+    uint256 public constant MAX_TRANSFER_ZKME_FROM_MULTI_MESSAGE = 1e17;
     uint64 public constant MIN_SEQUENCE_FROM_MULTI_MESSAGE = uint64(0xff00000000000000);
 
     /*----------------- storage layer -----------------*/
     uint256 public largeTransferLimit;
     // the lock period for large transfer
     uint256 public lockPeriod;
-    // token address => recipient address => lockedAmount + unlockAt, address(0) means BNB
+    // token address => recipient address => lockedAmount + unlockAt, address(0) means ZKME
     mapping(address => LockInfo) public lockInfoMap;
 
     /*----------------- struct / event / modifier -----------------*/
@@ -162,7 +162,7 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
     }
 
     function refundCallbackGasFee(address _refundAddress, uint256 _refundFee) external override onlyCrossChain {
-        (bool success, ) = _refundAddress.call{ gas: MAX_GAS_FOR_TRANSFER_BNB, value: _refundFee }("");
+        (bool success, ) = _refundAddress.call{ gas: MAX_GAS_FOR_TRANSFER_ZKME, value: _refundFee }("");
         if (success) {
             emit SuccessRefundCallbackFee(_refundAddress, _refundFee);
         } else {
@@ -192,7 +192,7 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
         address recipient,
         uint256 amount
     ) external payable onlyMultiMessage returns (uint8, bytes memory, uint256, uint256, address) {
-        require(amount <= MAX_TRANSFER_BNB_FROM_MULTI_MESSAGE, "amount too large");
+        require(amount <= MAX_TRANSFER_ZKME_FROM_MULTI_MESSAGE, "amount too large");
         return _prepareTransferOut(sender, recipient, amount);
     }
 
@@ -205,7 +205,7 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
 
         require(
             msg.value >= amount + relayFee + minAckRelayFee,
-            "received BNB amount should be no less than the sum of transferOut BNB amount and minimum relayFee"
+            "received ZKME amount should be no less than the sum of transferOut ZKME amount and minimum relayFee"
         );
         uint256 _ackRelayFee = msg.value - amount - relayFee;
 
@@ -229,8 +229,8 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
         }
 
         if (actualAmount > 0) {
-            (bool success, ) = msg.sender.call{ gas: MAX_GAS_FOR_TRANSFER_BNB, value: actualAmount }("");
-            require(success, "transfer bnb error");
+            (bool success, ) = msg.sender.call{ gas: MAX_GAS_FOR_TRANSFER_ZKME, value: actualAmount }("");
+            require(success, "transfer azkme error");
             emit TransferTo(msg.sender, actualAmount);
         }
 
@@ -245,7 +245,7 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
         uint256 _amount = lockInfo.amount;
         lockInfo.amount = 0;
 
-        (bool _success, ) = recipient.call{ gas: MAX_GAS_FOR_TRANSFER_BNB, value: _amount }("");
+        (bool _success, ) = recipient.call{ gas: MAX_GAS_FOR_TRANSFER_ZKME, value: _amount }("");
         require(_success, "withdraw unlocked token failed");
 
         emit WithdrawUnlockedToken(recipient, _amount);
@@ -266,7 +266,7 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
         if (_compareStrings(key, "largeTransferLimit")) {
             require(valueLength == 32, "invalid largeTransferLimit value length");
             uint256 newLargeTransferLimit = BytesToTypes.bytesToUint256(valueLength, value);
-            require(newLargeTransferLimit >= 100 ether, "bnb largeTransferLimit too small");
+            require(newLargeTransferLimit >= 100 ether, "azkme largeTransferLimit too small");
             largeTransferLimit = newLargeTransferLimit;
         } else if (_compareStrings(key, "lockPeriod")) {
             require(valueLength == 32, "invalid lockPeriod value length");
@@ -332,7 +332,7 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
 
         if (!_checkAndLockTransferIn(transInSynPkg)) {
             (bool success, ) = transInSynPkg.recipient.call{
-                gas: MAX_GAS_FOR_TRANSFER_BNB,
+                gas: MAX_GAS_FOR_TRANSFER_ZKME,
                 value: transInSynPkg.amount
             }("");
             if (!success) {
@@ -360,13 +360,13 @@ contract TokenHub is Config, ReentrancyGuardUpgradeable, IMiddleLayer, ITokenHub
     function _doRefund(TransferOutAckPackage memory transOutAckPkg, bool fromMultiMessage) internal {
         if (fromMultiMessage) {
             require(
-                transOutAckPkg.refundAmount <= MAX_TRANSFER_BNB_FROM_MULTI_MESSAGE,
+                transOutAckPkg.refundAmount <= MAX_TRANSFER_ZKME_FROM_MULTI_MESSAGE,
                 "invalid refund amount from multi message"
             );
         }
 
         (bool success, ) = transOutAckPkg.refundAddr.call{
-            gas: MAX_GAS_FOR_TRANSFER_BNB,
+            gas: MAX_GAS_FOR_TRANSFER_ZKME,
             value: transOutAckPkg.refundAmount
         }("");
         if (!success) {
